@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner Janeiro 2025</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .planner {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 95%;
+            max-width: 1000px;
+        }
+
+        .planner h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #333; /* Preto mais claro */
+            color: #fff; /* Branco */
+            font-weight: bold;
+        }
+
+        th.day-header {
+            background-color: #d9534f; /* Vermelho */
+            color: #fff; /* Branco */
+        }
+
+        td {
+            background-color: #fff; /* Branco */
+            color: #333; /* Preto */
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        td.marked {
+            background-color: #d9534f; /* Vermelho */
+            color: #fff; /* Branco */
+            font-weight: bold;
+        }
+
+        td.task {
+            background-color: #f2f2f2; /* Cinza claro */
+            color: #333; /* Preto */
+            font-weight: bold;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .legend {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+        }
+
+        /* Estilo do Popup */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .popup h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .popup p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #d9534f;
+            color: #fff;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 28px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-close:hover {
+            background-color: #c9302c;
+        }
+
+        /* Fundo escurecido */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        /* Animação do popup */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="planner">
+        <h1>Planner Janeiro 2025</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tarefa</th>
+                    <!-- Dias do mês -->
+                    <th class="day-header">1</th>
+                    <th class="day-header">2</th>
+                    <th class="day-header">3</th>
+                    <th class="day-header">4</th>
+                    <th class="day-header">5</th>
+                    <th class="day-header">6</th>
+                    <th class="day-header">7</th>
+                    <th class="day-header">8</th>
+                    <th class="day-header">9</th>
+                    <th class="day-header">10</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Linhas com tarefas -->
+                <tr>
+                    <td class="task" onclick="showTaskInfo('agua')">Água</td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td class="task" onclick="showTaskInfo('frutas')">2 Frutas</td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td class="task" onclick="showTaskInfo('vacuo')">Vácuo</td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td class="task" onclick="showTaskInfo('post')">Post</td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td class="task" onclick="showTaskInfo('dieta')">Dieta</td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+                <tr>
+                    <td class="task" onclick="showTaskInfo('doce')">Comeu Doce</td>
+                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="legend">
+            <p><strong>X</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup">
+        <button class="popup-close" onclick="closePopup()">X</button>
+        <h2 id="popup-title">Tarefa</h2>
+        <p id="popup-message"></p>
+    </div>
+
+    <script>
+        const table = document.querySelector("table");
+
+        // Impedir marcação nas células de tarefa e dias
+        table.addEventListener("click", (e) => {
+            const cell = e.target;
+
+            // Verificar se a célula é de tarefa ou um dia
+            if (!cell || cell.tagName !== "TD" || cell.classList.contains("task") || cell.classList.contains("day-header")) {
+                return; // Não fazer nada
+            }
+
+            // Alternar marcação de célula se não for tarefa ou header
+            cell.classList.toggle("marked");
+            cell.textContent = cell.classList.contains("marked") ? "X" : "";
+        });
+
+        // Mostrar informações das tarefas
+        function showTaskInfo(task) {
+            const taskMessages = {
+                agua: "Cálculo de água: Multiplique 35 pelo seu peso em kg. Exemplo: 35 x 80kg = 2.800 ml/dia.",
+                cardio: "Faça exercícios de cardio por pelo menos 30 minutos.",
+                frutas: "Consuma ao menos 2 frutas diferentes no dia.",
+                vacuo: "Realize exercícios de vácuo abdominal por 10 minutos.",
+                post: "Poste uma foto ou atualize seu status de progresso.",
+                dieta: "Siga rigorosamente a sua dieta planejada.",
+                doce: "Evite consumir doces no dia."
+            };
+
+            const popup = document.getElementById("popup");
+            const overlay = document.getElementById("popup-overlay");
+            const title = document.getElementById("popup-title");
+            const message = document.getElementById("popup-message");
+
+            if (taskMessages[task]) {
+                title.textContent = task.charAt(0).toUpperCase() + task.slice(1);
+                message.textContent = taskMessages[task];
+                popup.style.display = "block";
+                overlay.style.display = "block";
+            }
+        }
+
+        function closePopup() {
+            const popup = document.getElementById("popup");
+            const overlay = document.getElementById("popup-overlay");
+            popup.style.display = "none";
+            overlay.style.display = "none";
+        }
+    </script>
+</body>
+</html>
