@@ -100,28 +100,73 @@
             text-align: center;
         }
 
-        /* Novo estilo para a área de orientação */
-        .orientation {
-            background-color: #ff9800;
-            color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            text-align: center;
-            font-size: 16px;
-            display: none; /* Inicialmente escondido */
-            position: relative;
+        /* Responsividade */
+        @media (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+
+            td, th {
+                padding: 8px;
+            }
+
+            .planner {
+                padding: 15px;
+            }
+
+            .legend {
+                font-size: 10px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
         }
 
-        .orientation .close-btn {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 18px;
-            cursor: pointer;
+        @media (max-width: 480px) {
+            td, th {
+                padding: 5px;
+            }
+
+            .planner {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 16px;
+            }
+
+            table {
+                font-size: 10px;
+            }
+
+            .legend {
+                font-size: 8px;
+            }
+        }
+
+        /* Estilos para a rotação da tela (modo paisagem) */
+        @media (orientation: landscape) {
+            .planner {
+                width: 80%;
+                padding: 25px;
+            }
+
+            table {
+                font-size: 16px;
+            }
+
+            td, th {
+                padding: 12px;
+            }
+
+            .legend {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
         }
 
         /* Carrossel */
@@ -166,13 +211,63 @@
             font-size: 18px;
         }
 
+        /* Estilos do popup de orientação */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .popup h3 {
+            margin-top: 0;
+            color: #d9534f;
+        }
+
+        .popup p {
+            margin: 10px 0;
+        }
+
+        .popup .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .popup .close-btn:hover {
+            background-color: darkred;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 999;
+        }
     </style>
 </head>
 <body>
     <!-- Carrossel de imagens de aviso -->
     <div class="carousel-container">
         <div class="carousel-images">
-            <!-- Imagem de aviso no primeiro slide -->
             <img src="aviso.png" alt="Aviso">
             <img src="https://via.placeholder.com/800x400?text=Aviso+2" alt="Aviso 2">
             <img src="https://via.placeholder.com/800x400?text=Aviso+3" alt="Aviso 3">
@@ -185,72 +280,111 @@
 
     <div class="planner">
         <h1>Planner Janeiro 2025</h1>
-
-        <!-- Área de Orientação para a tarefa -->
-        <div id="orientation" class="orientation">
-            <button class="close-btn" id="closeBtn">×</button>
-            <p id="orientationMessage"></p>
-        </div>
-
         <table>
-            <tr>
-                <th class="day-header">Dia</th>
-                <th class="task" data-task="agua">Água</th>
-                <th class="task" data-task="cardio">Cardio</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td class="agua">Água</td>
-                <td class="cardio">Cardio</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td class="agua">Água</td>
-                <td class="cardio">Cardio</td>
-            </tr>
-            <!-- Adicione outras linhas conforme necessário -->
+            <thead>
+                <tr>
+                    <th>Tarefa</th>
+                    <th class="day-header">1</th>
+                    <th class="day-header">2</th>
+                    <th class="day-header">3</th>
+                    <th class="day-header">4</th>
+                    <th class="day-header">5</th>
+                    <th class="day-header">6</th>
+                    <th class="day-header">7</th>
+                    <th class="day-header">8</th>
+                    <th class="day-header">9</th>
+                    <th class="day-header">10</th>
+                    <th class="day-header">11</th>
+                    <th class="day-header">12</th>
+                    <th class="day-header">13</th>
+                    <th class="day-header">14</th>
+                    <th class="day-header">15</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="task">Água</td>
+                    <td data-id="agua-1"></td><td data-id="agua-2"></td><td data-id="agua-3"></td><td data-id="agua-4"></td><td data-id="agua-5"></td><td data-id="agua-6"></td><td data-id="agua-7"></td><td data-id="agua-8"></td><td data-id="agua-9"></td><td data-id="agua-10"></td><td data-id="agua-11"></td><td data-id="agua-12"></td><td data-id="agua-13"></td><td data-id="agua-14"></td><td data-id="agua-15"></td>
+                </tr>
+                <!-- Outras linhas aqui... -->
+            </tbody>
         </table>
-
         <div class="legend">
-            <p><span style="color: #28a745;">✔</span> = Tarefa concluída</p>
+            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas.</p>
         </div>
     </div>
 
+    <!-- Pop-up de orientação -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <button class="close-btn" id="closeBtn">X</button>
+        <h3>Orientação</h3>
+        <p>Esta é a tarefa de <span id="popupTaskName"></span>. Marque ou desmarque conforme necessário.</p>
+    </div>
+
     <script>
-        // Função para abrir a orientação
-        function showOrientation(task) {
-            const orientationMessage = document.getElementById('orientationMessage');
-            const orientation = document.getElementById('orientation');
+        // Função para carregar as células marcadas
+        const table = document.querySelector("table");
 
-            if (task === 'agua') {
-                orientationMessage.textContent = "Lembre-se de beber bastante água! A cada tarefa de água concluída, você está se hidratando!";
-            } else if (task === 'cardio') {
-                orientationMessage.textContent = "Ótimo! Mantenha o foco no seu cardio. A cada dia de treino, você está melhorando sua saúde cardiovascular!";
-            }
-
-            orientation.style.display = 'block';
+        function loadMarkedCells() {
+            const markedCells = JSON.parse(localStorage.getItem("markedCells")) || [];
+            markedCells.forEach(cellId => {
+                const td = document.querySelector(`td[data-id="${cellId}"]`);
+                if (td) {
+                    td.classList.add("marked");
+                }
+            });
         }
 
-        // Fechar a caixa de orientação
-        document.getElementById('closeBtn').addEventListener('click', function() {
-            document.getElementById('orientation').style.display = 'none';
+        // Alternar marcação de célula
+        table.addEventListener("click", (e) => {
+            const cell = e.target;
+
+            if (!cell || !cell.tagName === "TD" || cell.classList.contains("task")) return;
+
+            // Mostrar a mensagem de orientação
+            const taskName = cell.closest("tr").querySelector("td.task").textContent;
+            document.getElementById("popupTaskName").textContent = taskName;
+            document.getElementById("popup").style.display = 'block';
+            document.getElementById("overlay").style.display = 'block';
+
+            cell.classList.toggle("marked");
+
+            // Salvar as células marcadas no localStorage
+            const markedCells = [...document.querySelectorAll("td.marked")].map(td => td.dataset.id);
+            localStorage.setItem("markedCells", JSON.stringify(markedCells));
         });
 
-        // Adicionando eventos de clique nas células de tarefas
-        document.querySelectorAll('.task').forEach(function(taskCell) {
-            taskCell.addEventListener('click', function() {
-                const task = taskCell.getAttribute('data-task');
-                showOrientation(task);
+        // Fechar o pop-up
+        document.getElementById("closeBtn").addEventListener("click", () => {
+            document.getElementById("popup").style.display = 'none';
+            document.getElementById("overlay").style.display = 'none';
+        });
+
+        // Carregar células marcadas ao carregar a página
+        window.onload = loadMarkedCells;
+
+        // Carrossel de Imagens
+        let currentIndex = 0;
+        const images = document.querySelectorAll(".carousel-images img");
+        const totalImages = images.length;
+
+        document.getElementById("nextButton").addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % totalImages;
+            updateCarousel();
+        });
+
+        document.getElementById("prevButton").addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            updateCarousel();
+        });
+
+        function updateCarousel() {
+            const offset = -currentIndex * 100;
+            images.forEach(img => {
+                img.style.transform = `translateX(${offset}%)`;
             });
-        });
-
-        // Marcar tarefas como concluídas
-        document.querySelectorAll('.agua, .cardio').forEach(function(cell) {
-            cell.addEventListener('click', function() {
-                cell.classList.toggle('marked');
-            });
-        });
-
+        }
     </script>
 </body>
 </html>
