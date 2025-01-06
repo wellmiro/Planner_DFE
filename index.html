@@ -126,12 +126,6 @@
             margin-bottom: 15px;
         }
 
-        .popup img {
-            width: 50px; /* Tamanho ajustável da imagem */
-            height: 50px;
-            margin-bottom: 15px;
-        }
-
         .popup-close {
             position: absolute;
             top: 10px;
@@ -246,6 +240,13 @@
                 font-size: 24px;
             }
         }
+
+        /* Estilo da imagem no modal */
+        .popup-image {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -279,7 +280,7 @@
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
                     <td data-id="agua-1"></td><td data-id="agua-2"></td><td data-id="agua-3"></td><td data-id="agua-4"></td><td data-id="agua-5"></td><td data-id="agua-6"></td><td data-id="agua-7"></td><td data-id="agua-8"></td><td data-id="agua-9"></td><td data-id="agua-10"></td><td data-id="agua-11"></td><td data-id="agua-12"></td><td data-id="agua-13"></td><td data-id="agua-14"></td><td data-id="agua-15"></td>
                 </tr>
-                <!-- Outras linhas de tarefas -->
+                <!-- ... outras linhas de tarefas aqui -->
             </tbody>
         </table>
         <div class="legend">
@@ -287,11 +288,12 @@
         </div>
     </div>
 
+    <!-- Popup Modal -->
     <div class="popup-overlay" id="popup-overlay"></div>
     <div class="popup" id="popup">
         <button class="popup-close" onclick="closePopup()">X</button>
         <h2 id="popup-title">Tarefa</h2>
-        <img src="aviso.png" alt="Aviso" />
+        <img src="aviso.png" class="popup-image" alt="Aviso">
         <p id="popup-message"></p>
     </div>
 
