@@ -18,50 +18,53 @@
             flex-direction: column;
         }
 
-        .carousel-container {
+        /* Carrossel com fundo preto */
+        .carousel-wrapper {
+            background-color: #000; /* Fundo preto */
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 1000px;
+            margin-top: 20px;
             margin-bottom: 20px;
-            position: relative;
-            background-color: #000; /* Fundo preto do carrossel */
         }
 
         .carousel {
-            display: flex;
+            width: 100%;
             overflow: hidden;
             position: relative;
         }
 
-        .carousel img {
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-image {
             width: 100%;
-            height: auto;
             object-fit: cover;
         }
 
-        .carousel img:first-child {
-            margin-right: 20px;
-        }
-
-        .carousel-control {
+        .carousel-buttons {
             position: absolute;
             top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
             transform: translateY(-50%);
+        }
+
+        .carousel-button {
             background-color: rgba(0, 0, 0, 0.5);
-            color: white;
+            color: #fff;
             border: none;
             padding: 10px;
             cursor: pointer;
-            z-index: 10;
+            font-size: 18px;
         }
 
-        .carousel-control.prev {
-            left: 10px;
-        }
-
-        .carousel-control.next {
-            right: 10px;
-        }
-
+        /* Estilos da tabela e conteúdo */
         .planner {
             background-color: #fff;
             border: 1px solid #ccc;
@@ -91,7 +94,7 @@
             padding: 10px;
             border: 1px solid #ccc;
             vertical-align: middle;
-            width: 50px;
+            width: 50px; /* Largura fixa para as células */
         }
 
         th {
@@ -132,8 +135,9 @@
             cursor: pointer;
         }
 
+        /* Aumentando a largura da primeira coluna */
         td:first-child, th:first-child {
-            width: 150px;
+            width: 150px; /* Aumentando largura da primeira coluna */
         }
 
         .legend {
@@ -191,6 +195,7 @@
             background-color: #c9302c;
         }
 
+        /* Fundo escurecido */
         .popup-overlay {
             position: fixed;
             top: 0;
@@ -202,6 +207,7 @@
             display: none;
         }
 
+        /* Animação do popup */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -213,6 +219,7 @@
             }
         }
 
+        /* Responsividade */
         @media (max-width: 768px) {
             table {
                 font-size: 12px;
@@ -257,6 +264,7 @@
             }
         }
 
+        /* Estilos para a rotação da tela (modo paisagem) */
         @media (orientation: landscape) {
             .planner {
                 width: 80%;
@@ -282,15 +290,19 @@
     </style>
 </head>
 <body>
-    <!-- Carrossel de Avisos -->
-    <div class="carousel-container">
+    <!-- Carrossel de Imagens com fundo preto -->
+    <div class="carousel-wrapper">
         <div class="carousel">
-            <img src="aviso.png" alt="Aviso 1">
-            <img src="" alt="Aviso 2">
-            <img src="" alt="Aviso 3">
+            <div class="carousel-images">
+                <img src="aviso.png" alt="Aviso 1" class="carousel-image">
+                <img src="aviso2.png" alt="Aviso 2" class="carousel-image">
+                <img src="aviso3.png" alt="Aviso 3" class="carousel-image">
+            </div>
+            <div class="carousel-buttons">
+                <button class="carousel-button" onclick="prevSlide()">❮</button>
+                <button class="carousel-button" onclick="nextSlide()">❯</button>
+            </div>
         </div>
-        <button class="carousel-control prev" onclick="moveCarousel('prev')">←</button>
-        <button class="carousel-control next" onclick="moveCarousel('next')">→</button>
     </div>
 
     <div class="planner">
@@ -299,6 +311,7 @@
             <thead>
                 <tr>
                     <th>Tarefa</th>
+                    <!-- Dias de 1 a 15 -->
                     <th class="day-header">1</th>
                     <th class="day-header">2</th>
                     <th class="day-header">3</th>
@@ -317,88 +330,148 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Linhas com tarefas -->
                 <tr>
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
-                    <td data-id="agua-1" onclick="toggleTask(this)"></td><td data-id="agua-2" onclick="toggleTask(this)"></td><td data-id="agua-3" onclick="toggleTask(this)"></td><td data-id="agua-4" onclick="toggleTask(this)"></td><td data-id="agua-5" onclick="toggleTask(this)"></td><td data-id="agua-6" onclick="toggleTask(this)"></td><td data-id="agua-7" onclick="toggleTask(this)"></td><td data-id="agua-8" onclick="toggleTask(this)"></td><td data-id="agua-9
+                    <td data-id="agua-1" onclick="toggleMark(this)"></td><td data-id="agua-2" onclick="toggleMark(this)"></td><td data-id="agua-3" onclick="toggleMark(this)"></td><td data-id="agua-4" onclick="toggleMark(this)"></td><td data-id="agua-5" onclick="toggleMark(this)"></td><td data-id="agua-6" onclick="toggleMark(this)"></td><td data-id="agua-7" onclick="toggleMark(this)"></td><td data-id="agua-8" onclick="toggleMark(this)"></td><td data-id="agua-9" onclick="toggleMark(this)"></td><td data-id="agua-10" onclick="toggleMark(this)"></td><td data-id="agua-11" onclick="toggleMark(this)"></td><td data-id="agua-12" onclick="toggleMark(this)"></td><td data-id="agua-13" onclick="toggleMark(this)"></td><td data-id="agua-14" onclick="toggleMark(this)"></td><td data-id="agua-15" onclick="toggleMark(this)"></td>
+                </tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
-                    <td data-id="cardio-1" onclick="toggleTask(this)"></td><td data-id="cardio-2" onclick="toggleTask(this)"></td><td data-id="cardio-3" onclick="toggleTask(this)"></td><td data-id="cardio-4" onclick="toggleTask(this)"></td><td data-id="cardio-5" onclick="toggleTask(this)"></td><td data-id="cardio-6" onclick="toggleTask(this)"></td><td data-id="cardio-7" onclick="toggleTask(this)"></td><td data-id="cardio-8" onclick="toggleTask(this)"></td><td data-id="cardio-9" onclick="toggleTask(this)"></td><td data-id="cardio-10" onclick="toggleTask(this)"></td><td data-id="cardio-11" onclick="toggleTask(this)"></td><td data-id="cardio-12" onclick="toggleTask(this)"></td><td data-id="cardio-13" onclick="toggleTask(this)"></td><td data-id="cardio-14" onclick="toggleTask(this)"></td><td data-id="cardio-15" onclick="toggleTask(this)"></td>
+                    <td data-id="cardio-1" onclick="toggleMark(this)"></td><td data-id="cardio-2" onclick="toggleMark(this)"></td><td data-id="cardio-3" onclick="toggleMark(this)"></td><td data-id="cardio-4" onclick="toggleMark(this)"></td><td data-id="cardio-5" onclick="toggleMark(this)"></td><td data-id="cardio-6" onclick="toggleMark(this)"></td><td data-id="cardio-7" onclick="toggleMark(this)"></td><td data-id="cardio-8" onclick="toggleMark(this)"></td><td data-id="cardio-9" onclick="toggleMark(this)"></td><td data-id="cardio-10" onclick="toggleMark(this)"></td><td data-id="cardio-11" onclick="toggleMark(this)"></td><td data-id="cardio-12" onclick="toggleMark(this)"></td><td data-id="cardio-13" onclick="toggleMark(this)"></td><td data-id="cardio-14" onclick="toggleMark(this)"></td><td data-id="cardio-15" onclick="toggleMark(this)"></td>
                 </tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('frutas')">Frutas</td>
-                    <td data-id="frutas-1" onclick="toggleTask(this)"></td><td data-id="frutas-2" onclick="toggleTask(this)"></td><td data-id="frutas-3" onclick="toggleTask(this)"></td><td data-id="frutas-4" onclick="toggleTask(this)"></td><td data-id="frutas-5" onclick="toggleTask(this)"></td><td data-id="frutas-6" onclick="toggleTask(this)"></td><td data-id="frutas-7" onclick="toggleTask(this)"></td><td data-id="frutas-8" onclick="toggleTask(this)"></td><td data-id="frutas-9" onclick="toggleTask(this)"></td><td data-id="frutas-10" onclick="toggleTask(this)"></td><td data-id="frutas-11" onclick="toggleTask(this)"></td><td data-id="frutas-12" onclick="toggleTask(this)"></td><td data-id="frutas-13" onclick="toggleTask(this)"></td><td data-id="frutas-14" onclick="toggleTask(this)"></td><td data-id="frutas-15" onclick="toggleTask(this)"></td>
+                    <td data-id="frutas-1" onclick="toggleMark(this)"></td><td data-id="frutas-2" onclick="toggleMark(this)"></td><td data-id="frutas-3" onclick="toggleMark(this)"></td><td data-id="frutas-4" onclick="toggleMark(this)"></td><td data-id="frutas-5" onclick="toggleMark(this)"></td><td data-id="frutas-6" onclick="toggleMark(this)"></td><td data-id="frutas-7" onclick="toggleMark(this)"></td><td data-id="frutas-8" onclick="toggleMark(this)"></td><td data-id="frutas-9" onclick="toggleMark(this)"></td><td data-id="frutas-10" onclick="toggleMark(this)"></td><td data-id="frutas-11" onclick="toggleMark(this)"></td><td data-id="frutas-12" onclick="toggleMark(this)"></td><td data-id="frutas-13" onclick="toggleMark(this)"></td><td data-id="frutas-14" onclick="toggleMark(this)"></td><td data-id="frutas-15" onclick="toggleMark(this)"></td>
                 </tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('post')">Post</td>
-                    <td data-id="post-1" onclick="toggleTask(this)"></td><td data-id="post-2" onclick="toggleTask(this)"></td><td data-id="post-3" onclick="toggleTask(this)"></td><td data-id="post-4" onclick="toggleTask(this)"></td><td data-id="post-5" onclick="toggleTask(this)"></td><td data-id="post-6" onclick="toggleTask(this)"></td><td data-id="post-7" onclick="toggleTask(this)"></td><td data-id="post-8" onclick="toggleTask(this)"></td><td data-id="post-9" onclick="toggleTask(this)"></td><td data-id="post-10" onclick="toggleTask(this)"></td><td data-id="post-11" onclick="toggleTask(this)"></td><td data-id="post-12" onclick="toggleTask(this)"></td><td data-id="post-13" onclick="toggleTask(this)"></td><td data-id="post-14" onclick="toggleTask(this)"></td><td data-id="post-15" onclick="toggleTask(this)"></td>
+                    <td data-id="post-1" onclick="toggleMark(this)"></td><td data-id="post-2" onclick="toggleMark(this)"></td><td data-id="post-3" onclick="toggleMark(this)"></td><td data-id="post-4" onclick="toggleMark(this)"></td><td data-id="post-5" onclick="toggleMark(this)"></td><td data-id="post-6" onclick="toggleMark(this)"></td><td data-id="post-7" onclick="toggleMark(this)"></td><td data-id="post-8" onclick="toggleMark(this)"></td><td data-id="post-9" onclick="toggleMark(this)"></td><td data-id="post-10" onclick="toggleMark(this)"></td><td data-id="post-11" onclick="toggleMark(this)"></td><td data-id="post-12" onclick="toggleMark(this)"></td><td data-id="post-13" onclick="toggleMark(this)"></td><td data-id="post-14" onclick="toggleMark(this)"></td><td data-id="post-15" onclick="toggleMark(this)"></td>
                 </tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('dieta')">Dieta</td>
-                    <td data-id="dieta-1" onclick="toggleTask(this)"></td><td data-id="dieta-2" onclick="toggleTask(this)"></td><td data-id="dieta-3" onclick="toggleTask(this)"></td><td data-id="dieta-4" onclick="toggleTask(this)"></td><td data-id="dieta-5" onclick="toggleTask(this)"></td><td data-id="dieta-6" onclick="toggleTask(this)"></td><td data-id="dieta-7" onclick="toggleTask(this)"></td><td data-id="dieta-8" onclick="toggleTask(this)"></td><td data-id="dieta-9" onclick="toggleTask(this)"></td><td data-id="dieta-10" onclick="toggleTask(this)"></td><td data-id="dieta-11" onclick="toggleTask(this)"></td><td data-id="dieta-12" onclick="toggleTask(this)"></td><td data-id="dieta-13" onclick="toggleTask(this)"></td><td data-id="dieta-14" onclick="toggleTask(this)"></td><td data-id="dieta-15" onclick="toggleTask(this)"></td>
+                    <td data-id="dieta-1" onclick="toggleMark(this)"></td><td data-id="dieta-2" onclick="toggleMark(this)"></td><td data-id="dieta-3" onclick="toggleMark(this)"></td><td data-id="dieta-4" onclick="toggleMark(this)"></td><td data-id="dieta-5" onclick="toggleMark(this)"></td><td data-id="dieta-6" onclick="toggleMark(this)"></td><td data-id="dieta-7" onclick="toggleMark(this)"></td><td data-id="dieta-8" onclick="toggleMark(this)"></td><td data-id="dieta-9" onclick="toggleMark(this)"></td><td data-id="dieta-10" onclick="toggleMark(this)"></td><td data-id="dieta-11" onclick="toggleMark(this)"></td><td data-id="dieta-12" onclick="toggleMark(this)"></td><td data-id="dieta-13" onclick="toggleMark(this)"></td><td data-id="dieta-14" onclick="toggleMark(this)"></td><td data-id="dieta-15" onclick="toggleMark(this)"></td>
                 </tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('sem-acucar')">Sem Açúcar</td>
-                    <td data-id="sem-acucar-1" onclick="toggleTask(this)"></td><td data-id="sem-acucar-2" onclick="toggleTask(this)"></td><td data-id="sem-acucar-3" onclick="toggleTask(this)"></td><td data-id="sem-acucar-4" onclick="toggleTask(this)"></td><td data-id="sem-acucar-5" onclick="toggleTask(this)"></td><td data-id="sem-acucar-6" onclick="toggleTask(this)"></td><td data-id="sem-acucar-7" onclick="toggleTask(this)"></td><td data-id="sem-acucar-8" onclick="toggleTask(this)"></td><td data-id="sem-acucar-9" onclick="toggleTask(this)"></td><td data-id="sem-acucar-10" onclick="toggleTask(this)"></td><td data-id="sem-acucar-11" onclick="toggleTask(this)"></td><td data-id="sem-acucar-12" onclick="toggleTask(this)"></td><td data-id="sem-acucar-13" onclick="toggleTask(this)"></td><td data-id="sem-acucar-14" onclick="toggleTask(this)"></td><td data-id="sem-acucar-15" onclick="toggleTask(this)"></td>
+                    <td data-id="sem-acucar-1" onclick="toggleMark(this)"></td><td data-id="sem-acucar-2" onclick="toggleMark(this)"></td><td data-id="sem-acucar-3" onclick="toggleMark(this)"></td><td data-id="sem-acucar-4" onclick="toggleMark(this)"></td><td data-id="sem-acucar-5" onclick="toggleMark(this)"></td><td data-id="sem-acucar-6" onclick="toggleMark(this)"></td><td data-id="sem-acucar-7" onclick="toggleMark(this)"></td><td data-id="sem-acucar-8" onclick="toggleMark(this)"></td><td data-id="sem-acucar-9" onclick="toggleMark(this)"></td><td data-id="sem-acucar-10" onclick="toggleMark(this)"></td><td data-id="sem-acucar-11" onclick="toggleMark(this)"></td><td data-id="sem-acucar-12" onclick="toggleMark(this)"></td><td data-id="sem-acucar-13" onclick="toggleMark(this)"></td><td data-id="sem-acucar-14" onclick="toggleMark(this)"></td><td data-id="sem-acucar-15" onclick="toggleMark(this)"></td>
                 </tr>
             </tbody>
         </table>
-        <div class="legend">
-            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
-        </div>
+    </div>
+
+    <!-- Pop-up -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup">
+        <button class="popup-close" onclick="closePopup()">×</button>
+        <h2 id="popup-title"></h2>
+        <p id="popup-description"></p>
     </div>
 
     <script>
-        const taskDescriptions = {
-            agua: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.",
-            cardio: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.",
-            frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
-            post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
-            dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
-            "sem-acucar": "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
-        };
+        let currentSlide = 0;
 
-        const popup = document.querySelector('.popup');
-        const overlay = document.querySelector('.popup-overlay');
+        const images = document.querySelectorAll('.carousel-image');
+        const totalImages = images.length;
 
-        function toggleTask(cell) {
-            const id = cell.getAttribute('data-id');
+        // Exibe a próxima imagem no carrossel
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalImages;
+            updateCarousel();
+        }
+
+        // Exibe a imagem anterior no carrossel
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalImages) % totalImages;
+            updateCarousel();
+        }
+
+        // Atualiza o carrossel
+        function updateCarousel() {
+            const carouselImages = document.querySelector('.carousel-images');
+            carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // Função para marcar células
+        function toggleMark(cell) {
             cell.classList.toggle('marked');
-            saveState(id, cell.classList.contains('marked'));
+            saveMarkedCells();
         }
 
-        function saveState(id, isMarked) {
-            const markedTasks = JSON.parse(localStorage.getItem('markedTasks')) || {};
-            if (isMarked) {
-                markedTasks[id] = true;
-            } else {
-                delete markedTasks[id];
-            }
-            localStorage.setItem('markedTasks', JSON.stringify(markedTasks));
+        // Salva as células marcadas no localStorage
+        function saveMarkedCells() {
+            const markedCells = [];
+            const allCells = document.querySelectorAll('td[data-id]');
+            allCells.forEach(cell => {
+                if (cell.classList.contains('marked')) {
+                    markedCells.push(cell.getAttribute('data-id'));
+                }
+            });
+            localStorage.setItem('markedCells', JSON.stringify(markedCells));
         }
 
-        function loadState() {
-            const markedTasks = JSON.parse(localStorage.getItem('markedTasks')) || {};
-            Object.keys(markedTasks).forEach(id => {
-                const cell = document.querySelector(`[data-id="${id}"]`);
-                if (cell) cell.classList.add('marked');
+        // Carrega as células marcadas ao carregar a página
+        function loadMarkedCells() {
+            const markedCells = JSON.parse(localStorage.getItem('markedCells')) || [];
+            markedCells.forEach(id => {
+                const cell = document.querySelector(`td[data-id="${id}"]`);
+                if (cell) {
+                    cell.classList.add('marked');
+                }
             });
         }
 
-        function showTaskInfo(taskKey) {
-            popup.querySelector('h2').innerText = taskKey;
-            popup.querySelector('p').innerText = taskDescriptions[taskKey];
-            overlay.style.display = 'block';
-            popup.style.display = 'block';
+        // Exibe o pop-up de informações
+        function showTaskInfo(task) {
+            const popup = document.getElementById('popup');
+            const overlay = document.getElementById('popup-overlay');
+
+            const taskInfo = {
+                agua: {
+                    title: "Água",
+                    description: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada."
+                },
+                cardio: {
+                    title: "Cardio",
+                    description: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar."
+                },
+                frutas: {
+                    title: "Frutas",
+                    description: "Consuma 2 frutas por dia para manter uma alimentação equilibrada."
+                },
+                post: {
+                    title: "Post",
+                    description: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais."
+                },
+                dieta: {
+                    title: "Dieta",
+                    description: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros."
+                },
+                "sem-acucar": {
+                    title: "Sem Açúcar",
+                    description: "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
+                }
+            };
+
+            const info = taskInfo[task];
+            if (info) {
+                document.getElementById('popup-title').innerText = info.title;
+                document.getElementById('popup-description').innerText = info.description;
+
+                popup.style.display = 'block';
+                overlay.style.display = 'block';
+            }
         }
 
+        // Fecha o pop-up
         function closePopup() {
-            overlay.style.display = 'none';
-            popup.style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('popup-overlay').style.display = 'none';
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            loadState();
-        });
+        // Carrega as células marcadas quando a página é carregada
+        window.onload = function() {
+            loadMarkedCells();
+        };
     </script>
 </body>
 </html>
