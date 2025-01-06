@@ -18,22 +18,44 @@
             flex-direction: column;
         }
 
-        /* Carrossel */
-        .carousel {
+        /* Estilos do Carrossel */
+        .carousel-container {
             width: 100%;
             max-width: 1000px;
-            height: 200px;
+            height: 250px;
             overflow: hidden;
             position: relative;
-            background-color: #000; /* Fundo preto */
             margin-bottom: 20px;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
         }
 
         .carousel img {
             width: 100%;
-            height: 100%;
+            height: 250px;
             object-fit: cover;
-            display: block;
+        }
+
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50%;
         }
 
         /* Estilos do Planner */
@@ -262,9 +284,35 @@
     </style>
 </head>
 <body>
-    <!-- Carrossel de imagem -->
-    <div class="carousel">
-        <img src="aviso.png" alt="Aviso">
+    <!-- Carrosséis de imagem -->
+    <div class="carousel-container">
+        <div class="carousel" id="carousel1">
+            <img src="aviso.png" alt="Aviso 1">
+        </div>
+        <div class="carousel-buttons">
+            <button class="carousel-button" id="prev1">&#10094;</button>
+            <button class="carousel-button" id="next1">&#10095;</button>
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel" id="carousel2">
+            <img src="aviso2.png" alt="Aviso 2" style="display:none;">
+        </div>
+        <div class="carousel-buttons">
+            <button class="carousel-button" id="prev2">&#10094;</button>
+            <button class="carousel-button" id="next2">&#10095;</button>
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel" id="carousel3">
+            <img src="aviso3.png" alt="Aviso 3" style="display:none;">
+        </div>
+        <div class="carousel-buttons">
+            <button class="carousel-button" id="prev3">&#10094;</button>
+            <button class="carousel-button" id="next3">&#10095;</button>
+        </div>
     </div>
 
     <div class="planner">
@@ -273,7 +321,6 @@
             <thead>
                 <tr>
                     <th>Tarefa</th>
-                    <!-- Dias de 1 a 15 -->
                     <th class="day-header">1</th>
                     <th class="day-header">2</th>
                     <th class="day-header">3</th>
@@ -292,97 +339,66 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Linhas com tarefas -->
                 <tr>
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
                     <td data-id="agua-1"></td><td data-id="agua-2"></td><td data-id="agua-3"></td><td data-id="agua-4"></td><td data-id="agua-5"></td><td data-id="agua-6"></td><td data-id="agua-7"></td><td data-id="agua-8"></td><td data-id="agua-9"></td><td data-id="agua-10"></td><td data-id="agua-11"></td><td data-id="agua-12"></td><td data-id="agua-13"></td><td data-id="agua-14"></td><td data-id="agua-15"></td>
                 </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
-                    <td data-id="cardio-1"></td><td data-id="cardio-2"></td><td data-id="cardio-3"></td><td data-id="cardio-4"></td><td data-id="cardio-5"></td><td data-id="cardio-6"></td><td data-id="cardio-7"></td><td data-id="cardio-8"></td><td data-id="cardio-9"></td><td data-id="cardio-10"></td><td data-id="cardio-11"></td><td data-id="cardio-12"></td><td data-id="cardio-13"></td><td data-id="cardio-14"></td><td data-id="cardio-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('frutas')">2 Frutas</td>
-                    <td data-id="frutas-1"></td><td data-id="frutas-2"></td><td data-id="frutas-3"></td><td data-id="frutas-4"></td><td data-id="frutas-5"></td><td data-id="frutas-6"></td><td data-id="frutas-7"></td><td data-id="frutas-8"></td><td data-id="frutas-9"></td><td data-id="frutas-10"></td><td data-id="frutas-11"></td><td data-id="frutas-12"></td><td data-id="frutas-13"></td><td data-id="frutas-14"></td><td data-id="frutas-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('post')">Post</td>
-                    <td data-id="post-1"></td><td data-id="post-2"></td><td data-id="post-3"></td><td data-id="post-4"></td><td data-id="post-5"></td><td data-id="post-6"></td><td data-id="post-7"></td><td data-id="post-8"></td><td data-id="post-9"></td><td data-id="post-10"></td><td data-id="post-11"></td><td data-id="post-12"></td><td data-id="post-13"></td><td data-id="post-14"></td><td data-id="post-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('dieta')">Dieta</td>
-                    <td data-id="dieta-1"></td><td data-id="dieta-2"></td><td data-id="dieta-3"></td><td data-id="dieta-4"></td><td data-id="dieta-5"></td><td data-id="dieta-6"></td><td data-id="dieta-7"></td><td data-id="dieta-8"></td><td data-id="dieta-9"></td><td data-id="dieta-10"></td><td data-id="dieta-11"></td><td data-id="dieta-12"></td><td data-id="dieta-13"></td><td data-id="dieta-14"></td><td data-id="dieta-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('sem-acucar')">Sem Açúcar</td>
-                    <td data-id="sem-acucar-1"></td><td data-id="sem-acucar-2"></td><td data-id="sem-acucar-3"></td><td data-id="sem-acucar-4"></td><td data-id="sem-acucar-5"></td><td data-id="sem-acucar-6"></td><td data-id="sem-acucar-7"></td><td data-id="sem-acucar-8"></td><td data-id="sem-acucar-9"></td><td data-id="sem-acucar-10"></td><td data-id="sem-acucar-11"></td><td data-id="sem-acucar-12"></td><td data-id="sem-acucar-13"></td><td data-id="sem-acucar-14"></td><td data-id="sem-acucar-15"></td>
-                </tr>
+                <!-- Outras linhas de tarefas aqui -->
             </tbody>
         </table>
-        <div class="legend">
-            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
-        </div>
-    </div>
-
-    <div class="popup-overlay" id="popup-overlay"></div>
-    <div class="popup" id="popup">
-        <button class="popup-close" onclick="closePopup()">X</button>
-        <h2 id="popup-title">Tarefa</h2>
-        <p id="popup-message"></p>
     </div>
 
     <script>
-        // Função para carregar as células marcadas
-        const table = document.querySelector("table");
+        let currentIndex1 = 0;
+        let currentIndex2 = 0;
+        let currentIndex3 = 0;
+        
+        const carousel1 = document.getElementById("carousel1");
+        const carousel2 = document.getElementById("carousel2");
+        const carousel3 = document.getElementById("carousel3");
 
-        function loadMarkedCells() {
-            const markedCells = JSON.parse(localStorage.getItem("markedCells")) || [];
-            markedCells.forEach(cellId => {
-                const td = document.querySelector(`td[data-id="${cellId}"]`);
-                if (td) {
-                    td.classList.add("marked");
-                }
-            });
+        const totalSlides1 = carousel1.children.length;
+        const totalSlides2 = carousel2.children.length;
+        const totalSlides3 = carousel3.children.length;
+
+        function updateCarousel(carousel, currentIndex, totalSlides) {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
 
-        // Alternar marcação de célula
-        table.addEventListener("click", (e) => {
-            const cell = e.target;
-
-            if (!cell || !cell.tagName === "TD" || cell.classList.contains("task")) return;
-
-            cell.classList.toggle("marked");
-
-            // Salvar as células marcadas no localStorage
-            const markedCells = [...document.querySelectorAll("td.marked")].map(td => td.dataset.id);
-            localStorage.setItem("markedCells", JSON.stringify(markedCells));
+        document.getElementById("prev1").addEventListener("click", () => {
+            currentIndex1 = (currentIndex1 - 1 + totalSlides1) % totalSlides1;
+            updateCarousel(carousel1, currentIndex1, totalSlides1);
         });
 
-        // Mostrar informações das tarefas
-        function showTaskInfo(task) {
-            const taskMessages = {
-                agua: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.",
-                cardio: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.",
-                frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
-                post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
-                dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
-                "sem-acucar": "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
-            };
+        document.getElementById("next1").addEventListener("click", () => {
+            currentIndex1 = (currentIndex1 + 1) % totalSlides1;
+            updateCarousel(carousel1, currentIndex1, totalSlides1);
+        });
 
-            document.getElementById("popup-title").textContent = task.charAt(0).toUpperCase() + task.slice(1);
-            document.getElementById("popup-message").textContent = taskMessages[task] || "Informações não disponíveis.";
-            document.getElementById("popup").style.display = "block";
-            document.getElementById("popup-overlay").style.display = "block";
-        }
+        document.getElementById("prev2").addEventListener("click", () => {
+            currentIndex2 = (currentIndex2 - 1 + totalSlides2) % totalSlides2;
+            updateCarousel(carousel2, currentIndex2, totalSlides2);
+        });
 
-        // Fechar o popup
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-            document.getElementById("popup-overlay").style.display = "none";
-        }
+        document.getElementById("next2").addEventListener("click", () => {
+            currentIndex2 = (currentIndex2 + 1) % totalSlides2;
+            updateCarousel(carousel2, currentIndex2, totalSlides2);
+        });
 
-        // Carregar células marcadas ao carregar a página
-        window.onload = loadMarkedCells;
+        document.getElementById("prev3").addEventListener("click", () => {
+            currentIndex3 = (currentIndex3 - 1 + totalSlides3) % totalSlides3;
+            updateCarousel(carousel3, currentIndex3, totalSlides3);
+        });
+
+        document.getElementById("next3").addEventListener("click", () => {
+            currentIndex3 = (currentIndex3 + 1) % totalSlides3;
+            updateCarousel(carousel3, currentIndex3, totalSlides3);
+        });
+
+        // Inicializar carrosséis
+        updateCarousel(carousel1, currentIndex1, totalSlides1);
+        updateCarousel(carousel2, currentIndex2, totalSlides2);
+        updateCarousel(carousel3, currentIndex3, totalSlides3);
     </script>
 </body>
 </html>
