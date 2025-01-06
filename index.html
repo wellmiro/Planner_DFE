@@ -100,78 +100,6 @@
             text-align: center;
         }
 
-        /* Estilos do Popup */
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            text-align: center;
-            display: none;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .popup h2 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .popup p {
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #d9534f;
-            color: #fff;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            font-size: 18px;
-            font-weight: bold;
-            line-height: 28px;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .popup-close:hover {
-            background-color: #c9302c;
-        }
-
-        /* Fundo escurecido */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            display: none;
-        }
-
-        /* Animação do popup */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -60%);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%);
-            }
-        }
-
         /* Responsividade */
         @media (max-width: 768px) {
             table {
@@ -240,9 +168,61 @@
                 font-size: 24px;
             }
         }
+
+        /* Carrossel */
+        .carousel-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .carousel-images {
+            display: flex;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
     </style>
 </head>
 <body>
+    <!-- Carrossel de imagens de aviso -->
+    <div class="carousel-container">
+        <div class="carousel-images">
+            <img src="https://via.placeholder.com/800x400?text=Aviso+1" alt="Aviso 1">
+            <img src="https://via.placeholder.com/800x400?text=Aviso+2" alt="Aviso 2">
+            <img src="https://via.placeholder.com/800x400?text=Aviso+3" alt="Aviso 3">
+        </div>
+        <div class="carousel-buttons">
+            <button class="carousel-button" id="prevButton">&#10094;</button>
+            <button class="carousel-button" id="nextButton">&#10095;</button>
+        </div>
+    </div>
+
     <div class="planner">
         <h1>Planner Janeiro 2025</h1>
         <table>
@@ -270,41 +250,34 @@
             <tbody>
                 <!-- Linhas com tarefas -->
                 <tr>
-                    <td class="task" onclick="showTaskInfo('agua')">Água</td>
+                    <td class="task">Água</td>
                     <td data-id="agua-1"></td><td data-id="agua-2"></td><td data-id="agua-3"></td><td data-id="agua-4"></td><td data-id="agua-5"></td><td data-id="agua-6"></td><td data-id="agua-7"></td><td data-id="agua-8"></td><td data-id="agua-9"></td><td data-id="agua-10"></td><td data-id="agua-11"></td><td data-id="agua-12"></td><td data-id="agua-13"></td><td data-id="agua-14"></td><td data-id="agua-15"></td>
                 </tr>
                 <tr>
-                    <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
+                    <td class="task">Cardio</td>
                     <td data-id="cardio-1"></td><td data-id="cardio-2"></td><td data-id="cardio-3"></td><td data-id="cardio-4"></td><td data-id="cardio-5"></td><td data-id="cardio-6"></td><td data-id="cardio-7"></td><td data-id="cardio-8"></td><td data-id="cardio-9"></td><td data-id="cardio-10"></td><td data-id="cardio-11"></td><td data-id="cardio-12"></td><td data-id="cardio-13"></td><td data-id="cardio-14"></td><td data-id="cardio-15"></td>
                 </tr>
                 <tr>
-                    <td class="task" onclick="showTaskInfo('frutas')">2 Frutas</td>
+                    <td class="task">2 Frutas</td>
                     <td data-id="frutas-1"></td><td data-id="frutas-2"></td><td data-id="frutas-3"></td><td data-id="frutas-4"></td><td data-id="frutas-5"></td><td data-id="frutas-6"></td><td data-id="frutas-7"></td><td data-id="frutas-8"></td><td data-id="frutas-9"></td><td data-id="frutas-10"></td><td data-id="frutas-11"></td><td data-id="frutas-12"></td><td data-id="frutas-13"></td><td data-id="frutas-14"></td><td data-id="frutas-15"></td>
                 </tr>
                 <tr>
-                    <td class="task" onclick="showTaskInfo('post')">Post</td>
+                    <td class="task">Post</td>
                     <td data-id="post-1"></td><td data-id="post-2"></td><td data-id="post-3"></td><td data-id="post-4"></td><td data-id="post-5"></td><td data-id="post-6"></td><td data-id="post-7"></td><td data-id="post-8"></td><td data-id="post-9"></td><td data-id="post-10"></td><td data-id="post-11"></td><td data-id="post-12"></td><td data-id="post-13"></td><td data-id="post-14"></td><td data-id="post-15"></td>
                 </tr>
                 <tr>
-                    <td class="task" onclick="showTaskInfo('dieta')">Dieta</td>
+                    <td class="task">Dieta</td>
                     <td data-id="dieta-1"></td><td data-id="dieta-2"></td><td data-id="dieta-3"></td><td data-id="dieta-4"></td><td data-id="dieta-5"></td><td data-id="dieta-6"></td><td data-id="dieta-7"></td><td data-id="dieta-8"></td><td data-id="dieta-9"></td><td data-id="dieta-10"></td><td data-id="dieta-11"></td><td data-id="dieta-12"></td><td data-id="dieta-13"></td><td data-id="dieta-14"></td><td data-id="dieta-15"></td>
                 </tr>
                 <tr>
-                    <td class="task" onclick="showTaskInfo('sem-acucar')">Sem Açúcar</td>
+                    <td class="task">Sem Açúcar</td>
                     <td data-id="sem-acucar-1"></td><td data-id="sem-acucar-2"></td><td data-id="sem-acucar-3"></td><td data-id="sem-acucar-4"></td><td data-id="sem-acucar-5"></td><td data-id="sem-acucar-6"></td><td data-id="sem-acucar-7"></td><td data-id="sem-acucar-8"></td><td data-id="sem-acucar-9"></td><td data-id="sem-acucar-10"></td><td data-id="sem-acucar-11"></td><td data-id="sem-acucar-12"></td><td data-id="sem-acucar-13"></td><td data-id="sem-acucar-14"></td><td data-id="sem-acucar-15"></td>
                 </tr>
             </tbody>
         </table>
         <div class="legend">
-            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
+            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas.</p>
         </div>
-    </div>
-
-    <div class="popup-overlay" id="popup-overlay"></div>
-    <div class="popup" id="popup">
-        <button class="popup-close" onclick="closePopup()">X</button>
-        <h2 id="popup-title">Tarefa</h2>
-        <p id="popup-message"></p>
     </div>
 
     <script>
@@ -334,31 +307,30 @@
             localStorage.setItem("markedCells", JSON.stringify(markedCells));
         });
 
-        // Mostrar informações das tarefas
-        function showTaskInfo(task) {
-            const taskMessages = {
-                agua: "",
-                cardio: "",
-                frutas: "",
-                post: "",
-                dieta: "",
-                "sem-acucar": ""
-            };
-
-            document.getElementById("popup-title").textContent = task.charAt(0).toUpperCase() + task.slice(1);
-            document.getElementById("popup-message").textContent = taskMessages[task] || "";
-            document.getElementById("popup").style.display = "block";
-            document.getElementById("popup-overlay").style.display = "block";
-        }
-
-        // Fechar o popup
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-            document.getElementById("popup-overlay").style.display = "none";
-        }
-
         // Carregar células marcadas ao carregar a página
         window.onload = loadMarkedCells;
+
+        // Carrossel de Imagens
+        let currentIndex = 0;
+        const images = document.querySelectorAll(".carousel-images img");
+        const totalImages = images.length;
+
+        document.getElementById("nextButton").addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % totalImages;
+            updateCarousel();
+        });
+
+        document.getElementById("prevButton").addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+            updateCarousel();
+        });
+
+        function updateCarousel() {
+            const offset = -currentIndex * 100;
+            images.forEach(img => {
+                img.style.transform = `translateX(${offset}%)`;
+            });
+        }
     </script>
 </body>
 </html>
