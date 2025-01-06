@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planner Janeiro 2025</title>
     <style>
+        /* Estilos gerais */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f7f7f7;
@@ -14,6 +15,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            flex-direction: column;
         }
 
         .planner {
@@ -22,8 +24,9 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             padding: 20px;
-            width: 95%;
+            width: 100%;
             max-width: 1000px;
+            margin-top: 20px;
         }
 
         .planner h1 {
@@ -44,38 +47,50 @@
             padding: 10px;
             border: 1px solid #ccc;
             vertical-align: middle;
+            width: 50px; /* Largura fixa para as células */
         }
 
         th {
-            background-color: #333; /* Preto mais claro */
-            color: #fff; /* Branco */
+            background-color: #333;
+            color: #fff;
             font-weight: bold;
         }
 
         th.day-header {
-            background-color: #d9534f; /* Vermelho */
-            color: #fff; /* Branco */
+            background-color: #d9534f;
+            color: #fff;
         }
 
         td {
-            background-color: #fff; /* Branco */
-            color: #333; /* Preto */
+            background-color: #fff;
+            color: #333;
             cursor: pointer;
             transition: background-color 0.3s, color 0.3s;
         }
 
         td.marked {
-            background-color: #d9534f; /* Vermelho */
-            color: #fff; /* Branco */
+            background-color: #28a745;
+            color: #fff;
             font-weight: bold;
         }
 
+        td.marked::after {
+            content: "✔";
+            font-size: 18px;
+            color: #fff;
+        }
+
         td.task {
-            background-color: #f2f2f2; /* Cinza claro */
-            color: #333; /* Preto */
+            background-color: #f2f2f2;
+            color: #333;
             font-weight: bold;
             text-align: left;
             cursor: pointer;
+        }
+
+        /* Aumentando a largura da primeira coluna */
+        td:first-child, th:first-child {
+            width: 150px; /* Aumentando largura da primeira coluna */
         }
 
         .legend {
@@ -85,7 +100,7 @@
             text-align: center;
         }
 
-        /* Estilo do Popup */
+        /* Estilos do Popup */
         .popup {
             position: fixed;
             top: 50%;
@@ -156,6 +171,51 @@
                 transform: translate(-50%, -50%);
             }
         }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+
+            td, th {
+                padding: 8px;
+            }
+
+            .planner {
+                padding: 15px;
+            }
+
+            .legend {
+                font-size: 10px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            td, th {
+                padding: 5px;
+            }
+
+            .planner {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 16px;
+            }
+
+            table {
+                font-size: 10px;
+            }
+
+            .legend {
+                font-size: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -165,7 +225,7 @@
             <thead>
                 <tr>
                     <th>Tarefa</th>
-                    <!-- Dias do mês -->
+                    <!-- Dias de 1 a 15 -->
                     <th class="day-header">1</th>
                     <th class="day-header">2</th>
                     <th class="day-header">3</th>
@@ -176,42 +236,43 @@
                     <th class="day-header">8</th>
                     <th class="day-header">9</th>
                     <th class="day-header">10</th>
+                    <th class="day-header">11</th>
+                    <th class="day-header">12</th>
+                    <th class="day-header">13</th>
+                    <th class="day-header">14</th>
+                    <th class="day-header">15</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Linhas com tarefas -->
                 <tr>
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td data-id="agua-1"></td><td data-id="agua-2"></td><td data-id="agua-3"></td><td data-id="agua-4"></td><td data-id="agua-5"></td><td data-id="agua-6"></td><td data-id="agua-7"></td><td data-id="agua-8"></td><td data-id="agua-9"></td><td data-id="agua-10"></td><td data-id="agua-11"></td><td data-id="agua-12"></td><td data-id="agua-13"></td><td data-id="agua-14"></td><td data-id="agua-15"></td>
                 </tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td data-id="cardio-1"></td><td data-id="cardio-2"></td><td data-id="cardio-3"></td><td data-id="cardio-4"></td><td data-id="cardio-5"></td><td data-id="cardio-6"></td><td data-id="cardio-7"></td><td data-id="cardio-8"></td><td data-id="cardio-9"></td><td data-id="cardio-10"></td><td data-id="cardio-11"></td><td data-id="cardio-12"></td><td data-id="cardio-13"></td><td data-id="cardio-14"></td><td data-id="cardio-15"></td>
                 </tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('frutas')">2 Frutas</td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('vacuo')">Vácuo</td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td data-id="frutas-1"></td><td data-id="frutas-2"></td><td data-id="frutas-3"></td><td data-id="frutas-4"></td><td data-id="frutas-5"></td><td data-id="frutas-6"></td><td data-id="frutas-7"></td><td data-id="frutas-8"></td><td data-id="frutas-9"></td><td data-id="frutas-10"></td><td data-id="frutas-11"></td><td data-id="frutas-12"></td><td data-id="frutas-13"></td><td data-id="frutas-14"></td><td data-id="frutas-15"></td>
                 </tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('post')">Post</td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td data-id="post-1"></td><td data-id="post-2"></td><td data-id="post-3"></td><td data-id="post-4"></td><td data-id="post-5"></td><td data-id="post-6"></td><td data-id="post-7"></td><td data-id="post-8"></td><td data-id="post-9"></td><td data-id="post-10"></td><td data-id="post-11"></td><td data-id="post-12"></td><td data-id="post-13"></td><td data-id="post-14"></td><td data-id="post-15"></td>
                 </tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('dieta')">Dieta</td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td data-id="dieta-1"></td><td data-id="dieta-2"></td><td data-id="dieta-3"></td><td data-id="dieta-4"></td><td data-id="dieta-5"></td><td data-id="dieta-6"></td><td data-id="dieta-7"></td><td data-id="dieta-8"></td><td data-id="dieta-9"></td><td data-id="dieta-10"></td><td data-id="dieta-11"></td><td data-id="dieta-12"></td><td data-id="dieta-13"></td><td data-id="dieta-14"></td><td data-id="dieta-15"></td>
                 </tr>
                 <tr>
-                    <td class="task" onclick="showTaskInfo('doce')">Comeu Doce</td>
-                    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                    <td class="task" onclick="showTaskInfo('sem-acucar')">Sem Açúcar</td>
+                    <td data-id="sem-acucar-1"></td><td data-id="sem-acucar-2"></td><td data-id="sem-acucar-3"></td><td data-id="sem-acucar-4"></td><td data-id="sem-acucar-5"></td><td data-id="sem-acucar-6"></td><td data-id="sem-acucar-7"></td><td data-id="sem-acucar-8"></td><td data-id="sem-acucar-9"></td><td data-id="sem-acucar-10"></td><td data-id="sem-acucar-11"></td><td data-id="sem-acucar-12"></td><td data-id="sem-acucar-13"></td><td data-id="sem-acucar-14"></td><td data-id="sem-acucar-15"></td>
                 </tr>
             </tbody>
         </table>
         <div class="legend">
-            <p><strong>X</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
+            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
         </div>
     </div>
 
@@ -223,53 +284,58 @@
     </div>
 
     <script>
+        // Função para carregar as células marcadas
         const table = document.querySelector("table");
 
-        // Impedir marcação nas células de tarefa e dias
+        function loadMarkedCells() {
+            const markedCells = JSON.parse(localStorage.getItem("markedCells")) || [];
+            markedCells.forEach(cellId => {
+                const td = document.querySelector(`td[data-id="${cellId}"]`);
+                if (td) {
+                    td.classList.add("marked");
+                }
+            });
+        }
+
+        // Alternar marcação de célula
         table.addEventListener("click", (e) => {
             const cell = e.target;
 
-            // Verificar se a célula é de tarefa ou um dia
-            if (!cell || cell.tagName !== "TD" || cell.classList.contains("task") || cell.classList.contains("day-header")) {
-                return; // Não fazer nada
-            }
+            if (!cell || !cell.tagName === "TD" || cell.classList.contains("task")) return;
 
-            // Alternar marcação de célula se não for tarefa ou header
             cell.classList.toggle("marked");
-            cell.textContent = cell.classList.contains("marked") ? "X" : "";
+
+            // Salvar as células marcadas no localStorage
+            const markedCells = [...document.querySelectorAll("td.marked")].map(td => td.dataset.id);
+            localStorage.setItem("markedCells", JSON.stringify(markedCells));
         });
 
         // Mostrar informações das tarefas
         function showTaskInfo(task) {
             const taskMessages = {
-                agua: "Cálculo de água: Multiplique 35 pelo seu peso em kg. Exemplo: 35 x 80kg = 2.800 ml/dia.",
-                cardio: "Faça exercícios de cardio por pelo menos 30 minutos.",
-                frutas: "Consuma ao menos 2 frutas diferentes no dia.",
-                vacuo: "Realize exercícios de vácuo abdominal por 10 minutos.",
-                post: "Poste uma foto ou atualize seu status de progresso.",
-                dieta: "Siga rigorosamente a sua dieta planejada.",
-                doce: "Evite consumir doces no dia."
+                agua: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.",
+                cardio: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.",
+                frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
+                post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
+                dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
+                "sem-acucar": "Evite consumir açúcar para melhorar a saúde e reduzir calorias."
             };
 
-            const popup = document.getElementById("popup");
-            const overlay = document.getElementById("popup-overlay");
-            const title = document.getElementById("popup-title");
-            const message = document.getElementById("popup-message");
-
-            if (taskMessages[task]) {
-                title.textContent = task.charAt(0).toUpperCase() + task.slice(1);
-                message.textContent = taskMessages[task];
-                popup.style.display = "block";
-                overlay.style.display = "block";
-            }
+            document.getElementById("popup-title").textContent = task.charAt(0).toUpperCase() + task.slice(1);
+            document.getElementById("popup-message").textContent = taskMessages[task] || "Informações da tarefa não disponíveis.";
+            
+            // Exibir o popup
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("popup-overlay").style.display = "block";
         }
 
+        // Fechar o popup
         function closePopup() {
-            const popup = document.getElementById("popup");
-            const overlay = document.getElementById("popup-overlay");
-            popup.style.display = "none";
-            overlay.style.display = "none";
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("popup-overlay").style.display = "none";
         }
+
+        // Carregar as células marcadas ao carregar a página
+        window.onload = loadMarkedCells;
     </script>
 </body>
-</html>
