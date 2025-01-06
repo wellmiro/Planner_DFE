@@ -172,42 +172,6 @@
             }
         }
 
-        /* Modal de aviso */
-        .modal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            display: none;
-            z-index: 9999;
-        }
-
-        .modal img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #d9534f;
-            color: #fff;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
         /* Responsividade */
         @media (max-width: 768px) {
             table {
@@ -279,12 +243,6 @@
     </style>
 </head>
 <body>
-    <!-- Modal de aviso -->
-    <div class="modal" id="modalAviso">
-        <button class="modal-close" onclick="closeModal()">X</button>
-        <img src="aviso_dfe.jpg" alt="Aviso" />
-    </div>
-
     <div class="planner">
         <h1>Planner Janeiro 2025</h1>
         <table>
@@ -337,28 +295,70 @@
                 </tr>
             </tbody>
         </table>
+        <div class="legend">
+            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
+        </div>
     </div>
 
-    <div class="legend">
-        <p>✔ = Feito</p>
-        <p>V = Cumprido</p>
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="popup">
+        <button class="popup-close" onclick="closePopup()">X</button>
+        <h2 id="popup-title">Tarefa</h2>
+        <p id="popup-message"></p>
     </div>
 
     <script>
-        // Função para abrir o modal
-        function showModal() {
-            document.getElementById('modalAviso').style.display = 'block';
+        // Função para carregar as células marcadas
+        const table = document.querySelector("table");
+
+        function loadMarkedCells() {
+            const markedCells = JSON.parse(localStorage.getItem("markedCells")) || [];
+            markedCells.forEach(cellId => {
+                const td = document.querySelector(`td[data-id="${cellId}"]`);
+                if (td) {
+                    td.classList.add("marked");
+                }
+            });
         }
 
-        // Fechar o modal
-        function closeModal() {
-            document.getElementById('modalAviso').style.display = 'none';
+        // Alternar marcação de célula
+        table.addEventListener("click", (e) => {
+            const cell = e.target;
+
+            if (!cell || !cell.tagName === "TD" || cell.classList.contains("task")) return;
+
+            cell.classList.toggle("marked");
+
+            // Salvar as células marcadas no localStorage
+            const markedCells = [...document.querySelectorAll("td.marked")].map(td => td.dataset.id);
+            localStorage.setItem("markedCells", JSON.stringify(markedCells));
+        });
+
+        // Mostrar informações das tarefas
+        function showTaskInfo(task) {
+            const taskMessages = {
+                agua: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.",
+                cardio: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.",
+                frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
+                post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
+                dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
+                "sem-acucar": "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
+            };
+
+            document.getElementById("popup-title").textContent = task.charAt(0).toUpperCase() + task.slice(1);
+            document.getElementById("popup-message").textContent = taskMessages[task] || "Informações não disponíveis.";
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("popup-overlay").style.display = "block";
         }
 
-        // Mostrar o modal quando a página for carregada
-        window.onload = function() {
-            showModal();
+        // Fechar o popup
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("popup-overlay").style.display = "none";
         }
+
+        // Carregar células marcadas ao carregar a página
+        window.onload = loadMarkedCells;
     </script>
 </body>
 </html>
