@@ -337,16 +337,16 @@
         // Mostrar informações das tarefas
         function showTaskInfo(task) {
             const taskMessages = {
-                agua: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.",
-                cardio: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.",
-                frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
-                post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
-                dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
-                "sem-acucar": "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
+                agua: "",
+                cardio: "",
+                frutas: "",
+                post: "",
+                dieta: "",
+                "sem-acucar": ""
             };
 
             document.getElementById("popup-title").textContent = task.charAt(0).toUpperCase() + task.slice(1);
-            document.getElementById("popup-message").textContent = taskMessages[task] || "Informações não disponíveis.";
+            document.getElementById("popup-message").textContent = taskMessages[task] || "";
             document.getElementById("popup").style.display = "block";
             document.getElementById("popup-overlay").style.display = "block";
         }
