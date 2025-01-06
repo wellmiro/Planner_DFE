@@ -18,6 +18,25 @@
             flex-direction: column;
         }
 
+        /* Carrossel */
+        .carousel {
+            width: 100%;
+            max-width: 1000px;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background-color: #000; /* Fundo preto */
+            margin-bottom: 20px;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Estilos do Planner */
         .planner {
             background-color: #fff;
             border: 1px solid #ccc;
@@ -243,6 +262,11 @@
     </style>
 </head>
 <body>
+    <!-- Carrossel de imagem -->
+    <div class="carousel">
+        <img src="aviso.png" alt="Aviso">
+    </div>
+
     <div class="planner">
         <h1>Planner Janeiro 2025</h1>
         <table>
