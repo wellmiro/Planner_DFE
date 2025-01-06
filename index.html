@@ -319,8 +319,7 @@
             <tbody>
                 <tr>
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
-                    <td data-id="agua-1" onclick="toggleTask(this)"></td><td data-id="agua-2" onclick="toggleTask(this)"></td><td data-id="agua-3" onclick="toggleTask(this)"></td><td data-id="agua-4" onclick="toggleTask(this)"></td><td data-id="agua-5" onclick="toggleTask(this)"></td><td data-id="agua-6" onclick="toggleTask(this)"></td><td data-id="agua-7" onclick="toggleTask(this)"></td><td data-id="agua-8" onclick="toggleTask(this)"></td><td data-id="agua-9" onclick="toggleTask(this)"></td><td data-id="agua-10" onclick="toggleTask(this)"></td><td data-id="agua-11" onclick="toggleTask(this)"></td><td data-id="agua-12" onclick="toggleTask(this)"></td><td data-id="agua-13" onclick="toggleTask(this)"></td><td data-id="agua-14" onclick="toggleTask(this)"></td><td data-id="agua-15" onclick="toggleTask(this)"></td>
-                </tr>
+                    <td data-id="agua-1" onclick="toggleTask(this)"></td><td data-id="agua-2" onclick="toggleTask(this)"></td><td data-id="agua-3" onclick="toggleTask(this)"></td><td data-id="agua-4" onclick="toggleTask(this)"></td><td data-id="agua-5" onclick="toggleTask(this)"></td><td data-id="agua-6" onclick="toggleTask(this)"></td><td data-id="agua-7" onclick="toggleTask(this)"></td><td data-id="agua-8" onclick="toggleTask(this)"></td><td data-id="agua-9
                 <tr>
                     <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
                     <td data-id="cardio-1" onclick="toggleTask(this)"></td><td data-id="cardio-2" onclick="toggleTask(this)"></td><td data-id="cardio-3" onclick="toggleTask(this)"></td><td data-id="cardio-4" onclick="toggleTask(this)"></td><td data-id="cardio-5" onclick="toggleTask(this)"></td><td data-id="cardio-6" onclick="toggleTask(this)"></td><td data-id="cardio-7" onclick="toggleTask(this)"></td><td data-id="cardio-8" onclick="toggleTask(this)"></td><td data-id="cardio-9" onclick="toggleTask(this)"></td><td data-id="cardio-10" onclick="toggleTask(this)"></td><td data-id="cardio-11" onclick="toggleTask(this)"></td><td data-id="cardio-12" onclick="toggleTask(this)"></td><td data-id="cardio-13" onclick="toggleTask(this)"></td><td data-id="cardio-14" onclick="toggleTask(this)"></td><td data-id="cardio-15" onclick="toggleTask(this)"></td>
@@ -343,67 +342,63 @@
                 </tr>
             </tbody>
         </table>
-
-        <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
-    </div>
-
-    <!-- Popup -->
-    <div id="popup-overlay" class="popup-overlay" onclick="closePopup()"></div>
-    <div id="popup" class="popup">
-        <button class="popup-close" onclick="closePopup()">×</button>
-        <h2 id="popup-title"></h2>
-        <p id="popup-message"></p>
+        <div class="legend">
+            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
+        </div>
     </div>
 
     <script>
-        // Função para alternar o estado das células
+        const taskDescriptions = {
+            agua: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.",
+            cardio: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.",
+            frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
+            post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
+            dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
+            "sem-acucar": "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
+        };
+
+        const popup = document.querySelector('.popup');
+        const overlay = document.querySelector('.popup-overlay');
+
         function toggleTask(cell) {
+            const id = cell.getAttribute('data-id');
             cell.classList.toggle('marked');
+            saveState(id, cell.classList.contains('marked'));
         }
 
-        // Função para exibir as informações da tarefa no popup
-        function showTaskInfo(task) {
-            let title, message;
-
-            switch (task) {
-                case 'agua':
-                    title = 'Cálculo de água';
-                    message = 'Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.';
-                    break;
-                case 'cardio':
-                    title = 'Cardio';
-                    message = 'Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.';
-                    break;
-                case 'frutas':
-                    title = 'Frutas';
-                    message = 'Consuma 2 frutas por dia para manter uma alimentação equilibrada.';
-                    break;
-                case 'post':
-                    title = 'Postagem';
-                    message = 'Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.';
-                    break;
-                case 'dieta':
-                    title = 'Dieta';
-                    message = 'Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.';
-                    break;
-                case 'sem-acucar':
-                    title = 'Sem Açúcar';
-                    message = 'Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais.';
-                    break;
+        function saveState(id, isMarked) {
+            const markedTasks = JSON.parse(localStorage.getItem('markedTasks')) || {};
+            if (isMarked) {
+                markedTasks[id] = true;
+            } else {
+                delete markedTasks[id];
             }
-
-            document.getElementById('popup-title').innerText = title;
-            document.getElementById('popup-message').innerText = message;
-
-            document.getElementById('popup-overlay').style.display = 'block';
-            document.getElementById('popup').style.display = 'block';
+            localStorage.setItem('markedTasks', JSON.stringify(markedTasks));
         }
 
-        // Função para fechar o popup
+        function loadState() {
+            const markedTasks = JSON.parse(localStorage.getItem('markedTasks')) || {};
+            Object.keys(markedTasks).forEach(id => {
+                const cell = document.querySelector(`[data-id="${id}"]`);
+                if (cell) cell.classList.add('marked');
+            });
+        }
+
+        function showTaskInfo(taskKey) {
+            popup.querySelector('h2').innerText = taskKey;
+            popup.querySelector('p').innerText = taskDescriptions[taskKey];
+            overlay.style.display = 'block';
+            popup.style.display = 'block';
+        }
+
         function closePopup() {
-            document.getElementById('popup-overlay').style.display = 'none';
-            document.getElementById('popup').style.display = 'none';
+            overlay.style.display = 'none';
+            popup.style.display = 'none';
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+        });
     </script>
 </body>
 </html>
