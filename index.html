@@ -389,4 +389,23 @@
                     message = 'Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.';
                     break;
                 case 'sem-acucar':
-                   
+                    title = 'Sem Açúcar';
+                    message = 'Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais.';
+                    break;
+            }
+
+            document.getElementById('popup-title').innerText = title;
+            document.getElementById('popup-message').innerText = message;
+
+            document.getElementById('popup-overlay').style.display = 'block';
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        // Função para fechar o popup
+        function closePopup() {
+            document.getElementById('popup-overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
