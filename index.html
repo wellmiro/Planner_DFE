@@ -26,6 +26,7 @@
             overflow: hidden;
             position: relative;
             margin-bottom: 20px;
+            background-color: #000; /* Fundo preto */
         }
 
         .carousel {
@@ -284,34 +285,16 @@
     </style>
 </head>
 <body>
-    <!-- Carrosséis de imagem -->
+    <!-- Carrossel com 3 imagens -->
     <div class="carousel-container">
-        <div class="carousel" id="carousel1">
+        <div class="carousel" id="carousel">
             <img src="aviso.png" alt="Aviso 1">
-        </div>
-        <div class="carousel-buttons">
-            <button class="carousel-button" id="prev1">&#10094;</button>
-            <button class="carousel-button" id="next1">&#10095;</button>
-        </div>
-    </div>
-
-    <div class="carousel-container">
-        <div class="carousel" id="carousel2">
             <img src="aviso2.png" alt="Aviso 2" style="display:none;">
-        </div>
-        <div class="carousel-buttons">
-            <button class="carousel-button" id="prev2">&#10094;</button>
-            <button class="carousel-button" id="next2">&#10095;</button>
-        </div>
-    </div>
-
-    <div class="carousel-container">
-        <div class="carousel" id="carousel3">
             <img src="aviso3.png" alt="Aviso 3" style="display:none;">
         </div>
         <div class="carousel-buttons">
-            <button class="carousel-button" id="prev3">&#10094;</button>
-            <button class="carousel-button" id="next3">&#10095;</button>
+            <button class="carousel-button" id="prev">&#10094;</button>
+            <button class="carousel-button" id="next">&#10095;</button>
         </div>
     </div>
 
@@ -349,56 +332,26 @@
     </div>
 
     <script>
-        let currentIndex1 = 0;
-        let currentIndex2 = 0;
-        let currentIndex3 = 0;
-        
-        const carousel1 = document.getElementById("carousel1");
-        const carousel2 = document.getElementById("carousel2");
-        const carousel3 = document.getElementById("carousel3");
+        let currentIndex = 0;
+        const carousel = document.getElementById("carousel");
+        const totalSlides = carousel.children.length;
 
-        const totalSlides1 = carousel1.children.length;
-        const totalSlides2 = carousel2.children.length;
-        const totalSlides3 = carousel3.children.length;
-
-        function updateCarousel(carousel, currentIndex, totalSlides) {
+        function updateCarousel() {
             carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
 
-        document.getElementById("prev1").addEventListener("click", () => {
-            currentIndex1 = (currentIndex1 - 1 + totalSlides1) % totalSlides1;
-            updateCarousel(carousel1, currentIndex1, totalSlides1);
+        document.getElementById("prev").addEventListener("click", () => {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
         });
 
-        document.getElementById("next1").addEventListener("click", () => {
-            currentIndex1 = (currentIndex1 + 1) % totalSlides1;
-            updateCarousel(carousel1, currentIndex1, totalSlides1);
+        document.getElementById("next").addEventListener("click", () => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
         });
 
-        document.getElementById("prev2").addEventListener("click", () => {
-            currentIndex2 = (currentIndex2 - 1 + totalSlides2) % totalSlides2;
-            updateCarousel(carousel2, currentIndex2, totalSlides2);
-        });
-
-        document.getElementById("next2").addEventListener("click", () => {
-            currentIndex2 = (currentIndex2 + 1) % totalSlides2;
-            updateCarousel(carousel2, currentIndex2, totalSlides2);
-        });
-
-        document.getElementById("prev3").addEventListener("click", () => {
-            currentIndex3 = (currentIndex3 - 1 + totalSlides3) % totalSlides3;
-            updateCarousel(carousel3, currentIndex3, totalSlides3);
-        });
-
-        document.getElementById("next3").addEventListener("click", () => {
-            currentIndex3 = (currentIndex3 + 1) % totalSlides3;
-            updateCarousel(carousel3, currentIndex3, totalSlides3);
-        });
-
-        // Inicializar carrosséis
-        updateCarousel(carousel1, currentIndex1, totalSlides1);
-        updateCarousel(carousel2, currentIndex2, totalSlides2);
-        updateCarousel(carousel3, currentIndex3, totalSlides3);
+        // Inicializar carrossel
+        updateCarousel();
     </script>
 </body>
 </html>
