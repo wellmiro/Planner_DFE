@@ -216,6 +216,30 @@
                 font-size: 8px;
             }
         }
+
+        /* Estilos para a rotação da tela (modo paisagem) */
+        @media (orientation: landscape) {
+            .planner {
+                width: 80%;
+                padding: 25px;
+            }
+
+            table {
+                font-size: 16px;
+            }
+
+            td, th {
+                padding: 12px;
+            }
+
+            .legend {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -318,13 +342,11 @@
                 frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
                 post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
                 dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
-                "sem-acucar": "Evite consumir açúcar para melhorar a saúde e reduzir calorias."
+                "sem-acucar": "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
             };
 
             document.getElementById("popup-title").textContent = task.charAt(0).toUpperCase() + task.slice(1);
-            document.getElementById("popup-message").textContent = taskMessages[task] || "Informações da tarefa não disponíveis.";
-            
-            // Exibir o popup
+            document.getElementById("popup-message").textContent = taskMessages[task] || "Informações não disponíveis.";
             document.getElementById("popup").style.display = "block";
             document.getElementById("popup-overlay").style.display = "block";
         }
@@ -335,7 +357,8 @@
             document.getElementById("popup-overlay").style.display = "none";
         }
 
-        // Carregar as células marcadas ao carregar a página
+        // Carregar células marcadas ao carregar a página
         window.onload = loadMarkedCells;
     </script>
 </body>
+</html>
