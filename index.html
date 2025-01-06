@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planner Janeiro 2025</title>
     <style>
+        /* Estilos gerais */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f7f7f7;
@@ -46,13 +47,18 @@
             padding: 10px;
             border: 1px solid #ccc;
             vertical-align: middle;
-            width: 50px;
+            width: 50px; /* Largura fixa para as células */
         }
 
         th {
             background-color: #333;
             color: #fff;
             font-weight: bold;
+        }
+
+        th.day-header {
+            background-color: #d9534f;
+            color: #fff;
         }
 
         td {
@@ -82,8 +88,9 @@
             cursor: pointer;
         }
 
+        /* Aumentando a largura da primeira coluna */
         td:first-child, th:first-child {
-            width: 150px;
+            width: 150px; /* Aumentando largura da primeira coluna */
         }
 
         .legend {
@@ -141,6 +148,7 @@
             background-color: #c9302c;
         }
 
+        /* Fundo escurecido */
         .popup-overlay {
             position: fixed;
             top: 0;
@@ -152,6 +160,7 @@
             display: none;
         }
 
+        /* Animação do popup */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -163,18 +172,107 @@
             }
         }
 
-        /* Estilo da imagem no modal */
-        .popup-image {
-            width: 100px;
-            height: 100px;
-            margin-bottom: 15px;
+        /* Responsividade */
+        @media (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+
+            td, th {
+                padding: 8px;
+            }
+
+            .planner {
+                padding: 15px;
+            }
+
+            .legend {
+                font-size: 10px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
         }
 
-        .task-info {
-            color: #333;
+        @media (max-width: 480px) {
+            td, th {
+                padding: 5px;
+            }
+
+            .planner {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 16px;
+            }
+
+            table {
+                font-size: 10px;
+            }
+
+            .legend {
+                font-size: 8px;
+            }
+        }
+
+        /* Estilos para a rotação da tela (modo paisagem) */
+        @media (orientation: landscape) {
+            .planner {
+                width: 80%;
+                padding: 25px;
+            }
+
+            table {
+                font-size: 16px;
+            }
+
+            td, th {
+                padding: 12px;
+            }
+
+            .legend {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        /* Estilo do Modal de Aviso */
+        .aviso-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+            display: none;
+            text-align: center;
+        }
+
+        .aviso-modal img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        .aviso-modal button {
             margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
+        .aviso-modal button:hover {
+            background-color: #c9302c;
+        }
     </style>
 </head>
 <body>
@@ -203,22 +301,12 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Linhas com tarefas -->
                 <tr>
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
                     <td data-id="agua-1"></td><td data-id="agua-2"></td><td data-id="agua-3"></td><td data-id="agua-4"></td><td data-id="agua-5"></td><td data-id="agua-6"></td><td data-id="agua-7"></td><td data-id="agua-8"></td><td data-id="agua-9"></td><td data-id="agua-10"></td><td data-id="agua-11"></td><td data-id="agua-12"></td><td data-id="agua-13"></td><td data-id="agua-14"></td><td data-id="agua-15"></td>
                 </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
-                    <td data-id="cardio-1"></td><td data-id="cardio-2"></td><td data-id="cardio-3"></td><td data-id="cardio-4"></td><td data-id="cardio-5"></td><td data-id="cardio-6"></td><td data-id="cardio-7"></td><td data-id="cardio-8"></td><td data-id="cardio-9"></td><td data-id="cardio-10"></td><td data-id="cardio-11"></td><td data-id="cardio-12"></td><td data-id="cardio-13"></td><td data-id="cardio-14"></td><td data-id="cardio-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('frutas')">Frutas</td>
-                    <td data-id="frutas-1"></td><td data-id="frutas-2"></td><td data-id="frutas-3"></td><td data-id="frutas-4"></td><td data-id="frutas-5"></td><td data-id="frutas-6"></td><td data-id="frutas-7"></td><td data-id="frutas-8"></td><td data-id="frutas-9"></td><td data-id="frutas-10"></td><td data-id="frutas-11"></td><td data-id="frutas-12"></td><td data-id="frutas-13"></td><td data-id="frutas-14"></td><td data-id="frutas-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('post')">Postagem</td>
-                    <td data-id="post-1"></td><td data-id="post-2"></td><td data-id="post-3"></td><td data-id="post-4"></td><td data-id="post-5"></td><td data-id="post-6"></td><td data-id="post-7"></td><td data-id="post-8"></td><td data-id="post-9"></td><td data-id="post-10"></td><td data-id="post-11"></td><td data-id="post-12"></td><td data-id="post-13"></td><td data-id="post-14"></td><td data-id="post-15"></td>
-                </tr>
+                <!-- Outras tarefas aqui... -->
             </tbody>
         </table>
         <div class="legend">
@@ -226,16 +314,32 @@
         </div>
     </div>
 
-    <!-- Popup Modal -->
+    <!-- Modal de Aviso -->
+    <div class="aviso-modal" id="aviso-modal">
+        <img src="aviso.png" alt="Aviso">
+        <p>Você está visualizando o Planner de Janeiro 2025!</p>
+        <button onclick="closeAvisoModal()">Fechar</button>
+    </div>
+
+    <!-- Popup de Tarefa -->
     <div class="popup-overlay" id="popup-overlay"></div>
     <div class="popup" id="popup">
         <button class="popup-close" onclick="closePopup()">X</button>
         <h2 id="popup-title">Tarefa</h2>
-        <img src="aviso.png" class="popup-image" alt="Aviso">
         <p id="popup-message"></p>
     </div>
 
     <script>
+        // Função para mostrar o modal de aviso
+        function showAvisoModal() {
+            document.getElementById("aviso-modal").style.display = "block";
+        }
+
+        // Fechar o modal de aviso
+        function closeAvisoModal() {
+            document.getElementById("aviso-modal").style.display = "none";
+        }
+
         // Função para carregar as células marcadas
         const table = document.querySelector("table");
 
@@ -268,7 +372,9 @@
                 agua: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.",
                 cardio: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.",
                 frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
-                post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais."
+                post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
+                dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
+                "sem-acucar": "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
             };
 
             document.getElementById("popup-title").textContent = task.charAt(0).toUpperCase() + task.slice(1);
@@ -284,7 +390,10 @@
         }
 
         // Carregar células marcadas ao carregar a página
-        window.onload = loadMarkedCells;
+        window.onload = function() {
+            loadMarkedCells();
+            showAvisoModal();
+        };
     </script>
 </body>
 </html>
