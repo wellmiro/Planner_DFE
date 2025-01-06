@@ -126,6 +126,12 @@
             margin-bottom: 15px;
         }
 
+        .popup img {
+            width: 50px; /* Tamanho ajustável da imagem */
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
         .popup-close {
             position: absolute;
             top: 10px;
@@ -273,26 +279,7 @@
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
                     <td data-id="agua-1"></td><td data-id="agua-2"></td><td data-id="agua-3"></td><td data-id="agua-4"></td><td data-id="agua-5"></td><td data-id="agua-6"></td><td data-id="agua-7"></td><td data-id="agua-8"></td><td data-id="agua-9"></td><td data-id="agua-10"></td><td data-id="agua-11"></td><td data-id="agua-12"></td><td data-id="agua-13"></td><td data-id="agua-14"></td><td data-id="agua-15"></td>
                 </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
-                    <td data-id="cardio-1"></td><td data-id="cardio-2"></td><td data-id="cardio-3"></td><td data-id="cardio-4"></td><td data-id="cardio-5"></td><td data-id="cardio-6"></td><td data-id="cardio-7"></td><td data-id="cardio-8"></td><td data-id="cardio-9"></td><td data-id="cardio-10"></td><td data-id="cardio-11"></td><td data-id="cardio-12"></td><td data-id="cardio-13"></td><td data-id="cardio-14"></td><td data-id="cardio-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('frutas')">2 Frutas</td>
-                    <td data-id="frutas-1"></td><td data-id="frutas-2"></td><td data-id="frutas-3"></td><td data-id="frutas-4"></td><td data-id="frutas-5"></td><td data-id="frutas-6"></td><td data-id="frutas-7"></td><td data-id="frutas-8"></td><td data-id="frutas-9"></td><td data-id="frutas-10"></td><td data-id="frutas-11"></td><td data-id="frutas-12"></td><td data-id="frutas-13"></td><td data-id="frutas-14"></td><td data-id="frutas-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('post')">Post</td>
-                    <td data-id="post-1"></td><td data-id="post-2"></td><td data-id="post-3"></td><td data-id="post-4"></td><td data-id="post-5"></td><td data-id="post-6"></td><td data-id="post-7"></td><td data-id="post-8"></td><td data-id="post-9"></td><td data-id="post-10"></td><td data-id="post-11"></td><td data-id="post-12"></td><td data-id="post-13"></td><td data-id="post-14"></td><td data-id="post-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('dieta')">Dieta</td>
-                    <td data-id="dieta-1"></td><td data-id="dieta-2"></td><td data-id="dieta-3"></td><td data-id="dieta-4"></td><td data-id="dieta-5"></td><td data-id="dieta-6"></td><td data-id="dieta-7"></td><td data-id="dieta-8"></td><td data-id="dieta-9"></td><td data-id="dieta-10"></td><td data-id="dieta-11"></td><td data-id="dieta-12"></td><td data-id="dieta-13"></td><td data-id="dieta-14"></td><td data-id="dieta-15"></td>
-                </tr>
-                <tr>
-                    <td class="task" onclick="showTaskInfo('sem-acucar')">Sem Açúcar</td>
-                    <td data-id="sem-acucar-1"></td><td data-id="sem-acucar-2"></td><td data-id="sem-acucar-3"></td><td data-id="sem-acucar-4"></td><td data-id="sem-acucar-5"></td><td data-id="sem-acucar-6"></td><td data-id="sem-acucar-7"></td><td data-id="sem-acucar-8"></td><td data-id="sem-acucar-9"></td><td data-id="sem-acucar-10"></td><td data-id="sem-acucar-11"></td><td data-id="sem-acucar-12"></td><td data-id="sem-acucar-13"></td><td data-id="sem-acucar-14"></td><td data-id="sem-acucar-15"></td>
-                </tr>
+                <!-- Outras linhas de tarefas -->
             </tbody>
         </table>
         <div class="legend">
@@ -304,6 +291,7 @@
     <div class="popup" id="popup">
         <button class="popup-close" onclick="closePopup()">X</button>
         <h2 id="popup-title">Tarefa</h2>
+        <img src="aviso.png" alt="Aviso" />
         <p id="popup-message"></p>
     </div>
 
