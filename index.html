@@ -23,6 +23,7 @@
             max-width: 1000px;
             margin-bottom: 20px;
             position: relative;
+            background-color: #000; /* Fundo preto do carrossel */
         }
 
         .carousel {
@@ -343,27 +344,28 @@
             </tbody>
         </table>
         <div class="legend">
-            <p><strong>✔</strong>: Clique nas células para marcar ou desmarcar tarefas. Clique na tarefa para mais informações.</p>
+            <p>Legenda: Tarefas realizadas são marcadas com ✔. Clique nas tarefas para mais informações.</p>
         </div>
     </div>
 
-    <div class="popup-overlay" id="popup-overlay"></div>
+    <!-- Popup -->
+    <div class="popup-overlay" id="popup-overlay" onclick="closePopup()"></div>
     <div class="popup" id="popup">
-        <button class="popup-close" onclick="closePopup()">X</button>
-        <h2 id="popup-title">Tarefa</h2>
+        <button class="popup-close" onclick="closePopup()">×</button>
+        <h2 id="popup-title"></h2>
         <p id="popup-message"></p>
     </div>
 
     <script>
-        // Função para mover o carrossel
+        // Função para movimentar o carrossel
         let currentIndex = 0;
 
         function moveCarousel(direction) {
             const images = document.querySelectorAll('.carousel img');
-            if (direction === 'next') {
-                currentIndex = (currentIndex + 1) % images.length;
+            if (direction === 'prev') {
+                currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
             } else {
-                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
             }
             for (let i = 0; i < images.length; i++) {
                 images[i].style.transform = `translateX(-${currentIndex * 100}%)`;
@@ -378,27 +380,27 @@
             switch (task) {
                 case 'agua':
                     title = 'Água';
-                    message = 'Beba ao menos 2L de água por dia!';
+                    message = 'Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.';
                     break;
                 case 'cardio':
                     title = 'Cardio';
-                    message = 'Pratique atividades físicas como corrida, caminhada ou bicicleta.';
+                    message = 'Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.';
                     break;
                 case 'frutas':
                     title = '2 Frutas';
-                    message = 'Coma ao menos 2 frutas por dia.';
+                    message = 'Consuma 2 frutas por dia para manter uma alimentação equilibrada.';
                     break;
                 case 'post':
                     title = 'Post';
-                    message = 'Lembre-se de fazer o post diário.';
+                    message = 'Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.';
                     break;
                 case 'dieta':
                     title = 'Dieta';
-                    message = 'Siga sua dieta para alcançar seus objetivos.';
+                    message = 'Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.';
                     break;
                 case 'sem-acucar':
                     title = 'Sem Açúcar';
-                    message = 'Evite consumir açúcar em excesso para uma vida saudável.';
+                    message = 'Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais.';
                     break;
             }
 
