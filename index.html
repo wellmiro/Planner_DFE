@@ -6,207 +6,325 @@
     <title>Planner DFE</title>
     <style>
         /* Estilos gerais */
-/* Estilos gerais */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    flex-direction: column;
-}
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
 
-/* Carrossel com fundo preto */
-.carousel-wrapper {
-    background-color: #000;
-    padding: 10px;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    width: 90%; /* Ajuste a largura para não extrapolar */
-    max-width: 1000px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
+        /* Carrossel com fundo preto */
+        .carousel-wrapper {
+            background-color: #000;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            width: 90%; /* Ajuste a largura para não extrapolar */
+            max-width: 1000px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
-#day-counter {
-    text-align: center;
-    color: #000; /* Cor para o "21" e a barra "/" */
-    font-size: 2em;
-    font-weight: bold;
-    margin-bottom: 20px; /* Aumentei um pouco a margem */
-}
+        #day-counter {
+            text-align: center;
+            color: #000; /* Cor para o "21" e a barra "/" */
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px; /* Aumentei um pouco a margem */
+        }
 
-#day-counter .marked-count {
-    color: #28a745; /* Cor para o número de dias marcados (verde) */
-}
+        #day-counter .marked-count {
+            color: #28a745; /* Cor para o número de dias marcados (verde) */
+        }
 
-#day-counter::after {
-    content: " ✔"; /* Adiciona o ícone de checkmark */
-    color: #28a745; /* Cor do ícone (verde) */
-    font-size: 0.8em;
-    margin-left: 5px;
-}
+        #day-counter::after {
+            content: " ✔"; /* Adiciona o ícone de checkmark */
+            color: #28a745; /* Cor do ícone (verde) */
+            font-size: 0.8em;
+            margin-left: 5px;
+        }
 
-.carousel {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
+        .carousel {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
 
-.carousel-images {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
 
-.carousel-image {
-    width: 100%;
-    object-fit: cover;
-}
+        .carousel-image {
+            width: 100%;
+            object-fit: cover;
+        }
 
-.carousel-buttons {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-}
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
 
-.carousel-button {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    font-size: 18px;
-}
+        .carousel-button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 18px;
+        }
 
-/* Estilos da tabela e conteúdo */
-.planner {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 95%;
-    max-width: 1000px;
-    margin-top: 20px;
-    overflow-x: auto;
-}
+        /* Estilos da tabela e conteúdo */
+        .planner {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 95%;
+            max-width: 1000px;
+            margin-top: 20px;
+            overflow-x: auto;
+            position: relative; /* Para posicionar a seção de fotos */
+        }
 
-.planner h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-}
+        .planner h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
-    text-align: center;
-    border-radius: 10px;
-    white-space: nowrap;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
 
-th, td {
-    padding: 10px;
-    border: 1px solid #ccc;
-    vertical-align: middle;
-}
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            vertical-align: middle;
+        }
 
-th {
-    background-color: #333;
-    color: #fff;
-    font-weight: bold;
-}
+        th {
+            background-color: #333;
+            color: #fff;
+            font-weight: bold;
+        }
 
-th.day-header {
-    background-color: #d9534f;
-    color: #fff;
-}
+        th.day-header {
+            background-color: #d9534f;
+            color: #fff;
+        }
 
-td {
-    background-color: #fff;
-    color: #333;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
+        td {
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-td.marked {
-    background-color: #28a745; /* Cor de fundo quando marcado (verde) */
-    color: #fff; /* Cor do texto (branco) - pode não ser visível se não tiver texto */
-    font-weight: bold;
-    position: relative;
-}
+        td.marked {
+            background-color: #28a745; /* Cor de fundo quando marcado (verde) */
+            color: #fff; /* Cor do texto (branco) - pode não ser visível se não tiver texto */
+            font-weight: bold;
+            position: relative;
+        }
 
-td.marked::before {
-    content: "✔";
-    color: #fff; /* Cor do checkmark (branco) */
-    font-size: 1.2em;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-td.task {
-    background-color: #f2f2f2;
-    color: #333;
-    font-weight: bold;
-    text-align: left;
-    cursor: pointer;
-    width: auto; /* Deixa a largura se ajustar ao conteúdo */
-}
+        td.marked::before {
+            content: "✔";
+            color: #fff; /* Cor do checkmark (branco) */
+            font-size: 1.2em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        td.task {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+            text-align: left;
+            cursor: pointer;
+            width: auto; /* Deixa a largura se ajustar ao conteúdo */
+        }
 
-/* Estilo específico para a primeira coluna (Tarefa) */
-table tr > *:first-child {
-    width: 1%; /* Tenta ocupar o mínimo de espaço possível */
-    white-space: nowrap; /* Impede que o texto da tarefa quebre linha */
-}
+        /* Estilo específico para a primeira coluna (Tarefa) */
+        table tr > *:first-child {
+            width: 1%; /* Tenta ocupar o mínimo de espaço possível */
+            white-space: nowrap; /* Impede que o texto da tarefa quebre linha */
+        }
 
-/* Ajustes para telas menores */
-@media (max-width: 768px) {
-    .planner {
-        width: 98%;
-        padding: 15px;
-    }
-    table {
-        font-size: 12px;
-    }
-    th, td {
-        padding: 8px;
-    }
-    #day-counter {
-        font-size: 1.5em;
-    }
-}
+        /* Ajustes para telas menores */
+        @media (max-width: 768px) {
+            .planner {
+                width: 98%;
+                padding: 15px;
+            }
+            table {
+                font-size: 12px;
+            }
+            th, td {
+                padding: 8px;
+            }
+            #day-counter {
+                font-size: 1.5em;
+            }
+        }
 
-@media (max-width: 480px) {
-    .planner {
-        padding: 10px;
-    }
-    table {
-        font-size: 10px;
-    }
-    th, td {
-        padding: 5px;
-    }
-    #day-counter {
-        font-size: 1.2em;
-    }
-}
-.legend {
-    text-align: center; /* Centraliza o conteúdo dentro da div .legend */
-    margin-top: 20px; /* Adiciona um espaço acima da legenda, se necessário */
-}
+        @media (max-width: 480px) {
+            .planner {
+                padding: 10px;
+            }
+            table {
+                font-size: 10px;
+            }
+            th, td {
+                padding: 5px;
+            }
+            #day-counter {
+                font-size: 1.2em;
+            }
+        }
+        .legend {
+            text-align: center; /* Centraliza o conteúdo dentro da div .legend */
+            margin-top: 20px; /* Adiciona um espaço acima da legenda, se necessário */
+        }
 
-.legend p {
-    margin-bottom: 5px; /* Adiciona um pequeno espaço entre as linhas da legenda */
-}
-</style>
+        .legend p {
+            margin-bottom: 5px; /* Adiciona um pequeno espaço entre as linhas da legenda */
+        }
+
+        #photo-section {
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .photo-post {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-top: 15px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative; /* Para posicionar o botão de exclusão */
+        }
+
+        .photo-legend-container {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .photo-preview {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-legend {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-top: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .edit-legend:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        #choosePhotoButton {
+            background-color: #d9534f; /* Vermelho claro da primeira linha da tabela */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+            width: auto;
+            max-width: 300px;
+        }
+
+        #choosePhotoButton:hover {
+            background-color: #c9302c; /* Um tom um pouco mais escuro para o hover (opcional) */
+        }
+
+        #choosePhotoButton:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(217, 83, 79, 0.5); /* Destaque de foco na mesma cor */
+        }
+
+.delete-button {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgba(220, 53, 69, 0.8);
+            font-size: 1.6em; /* Tamanho maior do "x" */
+            opacity: 0.7;
+            transition: opacity 0.2s ease, background-color 0.2s ease;
+            line-height: 0.8;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+            text-decoration: none; /* Garante que não haja sublinhado */
+        }
+
+        .delete-button:hover {
+            opacity: 1;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .delete-button:focus {
+            outline: none;
+        }
+
+        .locked-indicator {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: #aaa; /* Cinza para indicar que não pode ser apagado */
+            font-size: 1.2em;
+        }
+    </style>
 </head>
 <body>
     <div class="carousel-wrapper">
@@ -252,7 +370,7 @@ table tr > *:first-child {
                     <th class="day-header">21</th>
                 </tr>
             </thead>
-          <tbody>
+            <tbody>
                 <tr>
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
                     <td data-id="agua-1" onclick="toggleMark(this)"></td>
@@ -300,7 +418,7 @@ table tr > *:first-child {
                     <td data-id="cardio-19" onclick="toggleMark(this)"></td>
                     <td data-id="cardio-20" onclick="toggleMark(this)"></td>
                     <td data-id="cardio-21" onclick="toggleMark(this)"></td>
-                </tr>
+</tr>
                 <tr>
                     <td class="task" onclick="showTaskInfo('frutas')">Frutas</td>
                     <td data-id="frutas-1" onclick="toggleMark(this)"></td>
@@ -404,14 +522,18 @@ table tr > *:first-child {
             <p><strong>Legenda:</strong></p>
             <p><span style="color: green;">✔</span> Tarefa completada</p>
         </div>
+
+        <div id="photo-section">
+            <button id="choosePhotoButton">Adicionar Foto</button>
+        </div>
     </div>
 
     <script>
         // Lógica do Carrossel
         let currentSlide = 0;
         const images = document.querySelectorAll('.carousel-image');
-	const dayCounterElement = document.getElementById('day-counter');
-	const totalDays = 21; // Defina o número total de dias
+        const dayCounterElement = document.getElementById('day-counter');
+        const totalDays = 21; // Defina o número total de dias
 
         function showSlide(index) {
             const totalSlides = images.length;
@@ -434,11 +556,11 @@ table tr > *:first-child {
         setInterval(nextSlide, 5000);
 
         // Funções de Marcação
-function toggleMark(cell) {
-    cell.classList.toggle('marked');
-    saveMarks();
-    updateDayCounter(); // Chame a função para atualizar o contador
-}
+        function toggleMark(cell) {
+            cell.classList.toggle('marked');
+            saveMarks();
+            updateDayCounter(); // Chame a função para atualizar o contador
+        }
 
         // Função para salvar as marcas
         function saveMarks() {
@@ -465,7 +587,7 @@ function toggleMark(cell) {
 
         // Chamar função para carregar marcas na inicialização
         loadMarks();
-	updateDayCounter(); 
+        updateDayCounter();
 
         // Função para exibir informações das tarefas
         function showTaskInfo(taskName) {
@@ -479,22 +601,142 @@ function toggleMark(cell) {
             };
             alert(taskDescriptions[taskName]);
         }
-function updateDayCounter() {
-    let markedDays = 0;
-    for (let i = 1; i <= totalDays; i++) {
-        const dayColumnCells = document.querySelectorAll(`td[data-id$="-${i}"]`);
-        let dayHasMark = false;
-        dayColumnCells.forEach(cell => {
-            if (cell.classList.contains('marked')) {
-                dayHasMark = true;
+
+        function updateDayCounter() {
+            let markedDays = 0;
+            for (let i = 1; i <= totalDays; i++) {
+                const dayColumnCells = document.querySelectorAll(`td[data-id$="-${i}"]`);
+                let dayHasMark = false;
+                dayColumnCells.forEach(cell => {
+                    if (cell.classList.contains('marked')) {
+                        dayHasMark = true;
+                    }
+                });
+                if (dayHasMark) {
+                    markedDays++;
+                }
             }
-        });
-        if (dayHasMark) {
-            markedDays++;
+            dayCounterElement.innerHTML = `<span class="marked-count">${markedDays}</span> / ${totalDays}`;
         }
-    }
-    dayCounterElement.innerHTML = `<span class="marked-count">${markedDays}</span> / ${totalDays}`;
-}
+
+        // Lógica para adicionar fotos (múltiplos posts) com funcionalidade de exclusão por data
+        const choosePhotoButton = document.getElementById("choosePhotoButton");
+        const photoSection = document.getElementById("photo-section");
+        const today = new Date().toLocaleDateString(); // Obtém a data atual no formato local
+
+        // Função para verificar se a data do post é hoje
+        function isToday(dateString) {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const currentDate = `${day}/${month}/${year}`;
+            return dateString === currentDate;
+        }
+
+        // Carregar posts de fotos salvos
+        window.onload = function() {
+            const savedPosts = localStorage.getItem('photoPosts');
+            if (savedPosts) {
+                let posts = JSON.parse(savedPosts);
+                posts.forEach(postData => {
+                    addPhotoPost(postData.photo, postData.legend, postData.date);
+                });
+            }
+        };
+
+        choosePhotoButton.addEventListener("click", function() {
+            const input = document.createElement("input");
+            input.type = "file";
+            input.accept = "image/*";
+
+            input.addEventListener("change", function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const now = new Date();
+                        const day = String(now.getDate()).padStart(2, '0');
+                        const month = String(now.getMonth() + 1).padStart(2, '0');
+                        const year = now.getFullYear();
+                        const currentDate = `${day}/${month}/${year}`;
+
+                        addPhotoPost(e.target.result, "", currentDate);
+                        savePhotoPosts();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            input.click();
+        });
+
+        function addPhotoPost(photoSrc, legendText, dateText) {
+            const postDiv = document.createElement('div');
+            postDiv.classList.add('photo-post');
+            postDiv.dataset.photoDate = dateText; // Armazena a data no dataset
+
+            const legendContainer = document.createElement('div');
+            legendContainer.classList.add('photo-legend-container');
+            legendContainer.textContent = `Foto Dia: ${dateText}`;
+
+            const img = document.createElement('img');
+            img.src = photoSrc;
+            img.alt = "Foto do Dia";
+            img.classList.add('photo-preview');
+
+            const legendInput = document.createElement('input');
+            legendInput.type = 'text';
+            legendInput.classList.add('edit-legend');
+            legendInput.placeholder = 'Adicionar legenda';
+            legendInput.value = legendText;
+            legendInput.addEventListener('input', savePhotoPosts);
+
+            postDiv.appendChild(legendContainer);
+            postDiv.appendChild(img);
+            postDiv.appendChild(legendInput);
+
+            // Adiciona botão de exclusão apenas se a data for hoje
+            if (isToday(dateText)) {
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete-button');
+                deleteButton.innerHTML = '&times;'; // Ícone de "x"
+                deleteButton.addEventListener('click', function() {
+                    postDiv.remove();
+                    savePhotoPosts();
+                });
+                postDiv.appendChild(deleteButton);
+            } else {
+                const lockedIndicator = document.createElement('span');
+                lockedIndicator.classList.add('locked-indicator');
+                lockedIndicator.innerHTML = '&#10006;'; // Símbolo de "x"
+                postDiv.appendChild(lockedIndicator);
+            }
+
+            photoSection.appendChild(postDiv);
+        }
+
+        function savePhotoPosts() {
+            const posts = [];
+            const photoPosts = document.querySelectorAll('.photo-post');
+            photoPosts.forEach(post => {
+                const img = post.querySelector('.photo-preview');
+                const legendInput = post.querySelector('.edit-legend');
+                const dateText = post.dataset.photoDate;
+                if (img && legendInput && dateText) {
+                    posts.push({
+                        photo: img.src,
+                        legend: legendInput.value,
+                        date: dateText
+                    });
+                }
+            });
+            localStorage.setItem('photoPosts', JSON.stringify(posts));
+        }
+
+        // Mover a seção de fotos para dentro do planner abaixo da tabela
+        const plannerDiv = document.querySelector('.planner');
+        plannerDiv.appendChild(photoSection);
     </script>
 </body>
 </html>
