@@ -24,11 +24,30 @@
             padding: 10px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            width: 100%;
+            width: 90%; /* Ajuste a largura para não extrapolar */
             max-width: 1000px;
             margin-top: 20px;
             margin-bottom: 20px;
         }
+
+#day-counter {
+    text-align: center; /* Centraliza o texto */
+    color: #000; /* Cor inicial para o "21" (preto) */
+    font-size: 2em; /* Tamanho da fonte (ajuste conforme necessário) */
+    font-weight: bold; /* Deixa o texto em negrito */
+    margin-bottom: 15px; /* Espaçamento abaixo do contador */
+}
+
+#day-counter .marked-count {
+    color: #28a745; /* Cor para o número de dias marcados (verde) */
+}
+
+#day-counter::after {
+    content: " ✔"; /* Adiciona o ícone de checkmark */
+    color: #28a745; /* Cor do ícone (verde) */
+    font-size: 0.8em; /* Tamanho do ícone (ajuste conforme necessário) */
+    margin-left: 5px; /* Espaçamento entre o texto e o ícone */
+}
 
         .carousel {
             width: 100%;
@@ -71,9 +90,10 @@
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             padding: 20px;
-            width: 100%;
+            width: 90%; /* Ajuste a largura para não extrapolar */
             max-width: 1000px;
             margin-top: 20px;
+            overflow-x: auto; /* Adiciona barra de rolagem horizontal se necessário */
         }
 
         .planner h1 {
@@ -88,13 +108,14 @@
             font-size: 14px;
             text-align: center;
             border-radius: 10px;
+            white-space: nowrap; /* Impede que as células quebrem linha */
         }
 
         th, td {
             padding: 10px;
             border: 1px solid #ccc;
             vertical-align: middle;
-            width: 50px;
+            width: 50px; /* Largura base das células de dia */
         }
 
         th {
@@ -133,10 +154,13 @@
             font-weight: bold;
             text-align: left;
             cursor: pointer;
+            width: auto; /* Permite que a célula da tarefa se ajuste ao conteúdo */
+            min-width: 150px; /* Garante uma largura mínima para a coluna de tarefas */
         }
 
         td:first-child, th:first-child {
-            width: 150px;
+            width: auto; /* Deixa a largura da primeira coluna se ajustar */
+            min-width: 150px;
         }
 
         .legend {
@@ -148,6 +172,9 @@
 
         /* Responsividade */
         @media (max-width: 768px) {
+            .carousel-wrapper, .planner {
+                width: 95%;
+            }
             table {
                 font-size: 12px;
             }
@@ -170,6 +197,9 @@
         }
 
         @media (max-width: 480px) {
+            .carousel-wrapper, .planner {
+                width: 98%;
+            }
             td, th {
                 padding: 5px;
             }
@@ -208,7 +238,7 @@
     </div>
 
     <div class="planner">
-        <h1>Planner Janeiro 2025</h1>
+        <h1 id="day-counter">0 / 21</h1>
         <table>
             <thead>
                 <tr>
@@ -228,10 +258,15 @@
                     <th class="day-header">13</th>
                     <th class="day-header">14</th>
                     <th class="day-header">15</th>
+                    <th class="day-header">16</th>
+                    <th class="day-header">17</th>
+                    <th class="day-header">18</th>
+                    <th class="day-header">19</th>
+                    <th class="day-header">20</th>
+                    <th class="day-header">21</th>
                 </tr>
             </thead>
-            <tbody>
-                <!-- Tarefa de Água -->
+          <tbody>
                 <tr>
                     <td class="task" onclick="showTaskInfo('agua')">Água</td>
                     <td data-id="agua-1" onclick="toggleMark(this)"></td>
@@ -249,8 +284,13 @@
                     <td data-id="agua-13" onclick="toggleMark(this)"></td>
                     <td data-id="agua-14" onclick="toggleMark(this)"></td>
                     <td data-id="agua-15" onclick="toggleMark(this)"></td>
+                    <td data-id="agua-16" onclick="toggleMark(this)"></td>
+                    <td data-id="agua-17" onclick="toggleMark(this)"></td>
+                    <td data-id="agua-18" onclick="toggleMark(this)"></td>
+                    <td data-id="agua-19" onclick="toggleMark(this)"></td>
+                    <td data-id="agua-20" onclick="toggleMark(this)"></td>
+                    <td data-id="agua-21" onclick="toggleMark(this)"></td>
                 </tr>
-                <!-- Tarefa de Cardio -->
                 <tr>
                     <td class="task" onclick="showTaskInfo('cardio')">Cardio</td>
                     <td data-id="cardio-1" onclick="toggleMark(this)"></td>
@@ -268,8 +308,13 @@
                     <td data-id="cardio-13" onclick="toggleMark(this)"></td>
                     <td data-id="cardio-14" onclick="toggleMark(this)"></td>
                     <td data-id="cardio-15" onclick="toggleMark(this)"></td>
+                    <td data-id="cardio-16" onclick="toggleMark(this)"></td>
+                    <td data-id="cardio-17" onclick="toggleMark(this)"></td>
+                    <td data-id="cardio-18" onclick="toggleMark(this)"></td>
+                    <td data-id="cardio-19" onclick="toggleMark(this)"></td>
+                    <td data-id="cardio-20" onclick="toggleMark(this)"></td>
+                    <td data-id="cardio-21" onclick="toggleMark(this)"></td>
                 </tr>
-                <!-- Tarefa de Frutas -->
                 <tr>
                     <td class="task" onclick="showTaskInfo('frutas')">Frutas</td>
                     <td data-id="frutas-1" onclick="toggleMark(this)"></td>
@@ -287,8 +332,13 @@
                     <td data-id="frutas-13" onclick="toggleMark(this)"></td>
                     <td data-id="frutas-14" onclick="toggleMark(this)"></td>
                     <td data-id="frutas-15" onclick="toggleMark(this)"></td>
+                    <td data-id="frutas-16" onclick="toggleMark(this)"></td>
+                    <td data-id="frutas-17" onclick="toggleMark(this)"></td>
+                    <td data-id="frutas-18" onclick="toggleMark(this)"></td>
+                    <td data-id="frutas-19" onclick="toggleMark(this)"></td>
+                    <td data-id="frutas-20" onclick="toggleMark(this)"></td>
+                    <td data-id="frutas-21" onclick="toggleMark(this)"></td>
                 </tr>
-                <!-- Tarefa de Post -->
                 <tr>
                     <td class="task" onclick="showTaskInfo('post')">Post</td>
                     <td data-id="post-1" onclick="toggleMark(this)"></td>
@@ -306,8 +356,13 @@
                     <td data-id="post-13" onclick="toggleMark(this)"></td>
                     <td data-id="post-14" onclick="toggleMark(this)"></td>
                     <td data-id="post-15" onclick="toggleMark(this)"></td>
+                    <td data-id="post-16" onclick="toggleMark(this)"></td>
+                    <td data-id="post-17" onclick="toggleMark(this)"></td>
+                    <td data-id="post-18" onclick="toggleMark(this)"></td>
+                    <td data-id="post-19" onclick="toggleMark(this)"></td>
+                    <td data-id="post-20" onclick="toggleMark(this)"></td>
+                    <td data-id="post-21" onclick="toggleMark(this)"></td>
                 </tr>
-                <!-- Tarefa de Dieta -->
                 <tr>
                     <td class="task" onclick="showTaskInfo('dieta')">Dieta</td>
                     <td data-id="dieta-1" onclick="toggleMark(this)"></td>
@@ -325,8 +380,13 @@
                     <td data-id="dieta-13" onclick="toggleMark(this)"></td>
                     <td data-id="dieta-14" onclick="toggleMark(this)"></td>
                     <td data-id="dieta-15" onclick="toggleMark(this)"></td>
+                    <td data-id="dieta-16" onclick="toggleMark(this)"></td>
+                    <td data-id="dieta-17" onclick="toggleMark(this)"></td>
+                    <td data-id="dieta-18" onclick="toggleMark(this)"></td>
+                    <td data-id="dieta-19" onclick="toggleMark(this)"></td>
+                    <td data-id="dieta-20" onclick="toggleMark(this)"></td>
+                    <td data-id="dieta-21" onclick="toggleMark(this)"></td>
                 </tr>
-                <!-- Tarefa de Sem Açúcar -->
                 <tr>
                     <td class="task" onclick="showTaskInfo('sem-acucar')">Sem Açúcar</td>
                     <td data-id="sem-acucar-1" onclick="toggleMark(this)"></td>
@@ -344,6 +404,12 @@
                     <td data-id="sem-acucar-13" onclick="toggleMark(this)"></td>
                     <td data-id="sem-acucar-14" onclick="toggleMark(this)"></td>
                     <td data-id="sem-acucar-15" onclick="toggleMark(this)"></td>
+                    <td data-id="sem-acucar-16" onclick="toggleMark(this)"></td>
+                    <td data-id="sem-acucar-17" onclick="toggleMark(this)"></td>
+                    <td data-id="sem-acucar-18" onclick="toggleMark(this)"></td>
+                    <td data-id="sem-acucar-19" onclick="toggleMark(this)"></td>
+                    <td data-id="sem-acucar-20" onclick="toggleMark(this)"></td>
+                    <td data-id="sem-acucar-21" onclick="toggleMark(this)"></td>
                 </tr>
             </tbody>
         </table>
@@ -358,6 +424,8 @@
         // Lógica do Carrossel
         let currentSlide = 0;
         const images = document.querySelectorAll('.carousel-image');
+	const dayCounterElement = document.getElementById('day-counter');
+	const totalDays = 21; // Defina o número total de dias
 
         function showSlide(index) {
             const totalSlides = images.length;
@@ -380,10 +448,11 @@
         setInterval(nextSlide, 5000);
 
         // Funções de Marcação
-        function toggleMark(cell) {
-            cell.classList.toggle('marked');
-            saveMarks();
-        }
+function toggleMark(cell) {
+    cell.classList.toggle('marked');
+    saveMarks();
+    updateDayCounter(); // Chame a função para atualizar o contador
+}
 
         // Função para salvar as marcas
         function saveMarks() {
@@ -410,6 +479,7 @@
 
         // Chamar função para carregar marcas na inicialização
         loadMarks();
+	updateDayCounter(); 
 
         // Função para exibir informações das tarefas
         function showTaskInfo(taskName) {
@@ -423,6 +493,22 @@
             };
             alert(taskDescriptions[taskName]);
         }
+function updateDayCounter() {
+    let markedDays = 0;
+    for (let i = 1; i <= totalDays; i++) {
+        const dayColumnCells = document.querySelectorAll(`td[data-id$="-${i}"]`);
+        let dayHasMark = false;
+        dayColumnCells.forEach(cell => {
+            if (cell.classList.contains('marked')) {
+                dayHasMark = true;
+            }
+        });
+        if (dayHasMark) {
+            markedDays++;
+        }
+    }
+    dayCounterElement.innerHTML = `<span class="marked-count">${markedDays}</span> / ${totalDays}`;
+}
     </script>
 </body>
 </html>
