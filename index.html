@@ -3,39 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planner Janeiro 2025</title>
+    <title>Planner DFE</title>
     <style>
         /* Estilos gerais */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f7f7f7;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
-        }
+/* Estilos gerais */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
 
-        /* Carrossel com fundo preto */
-        .carousel-wrapper {
-            background-color: #000;
-            padding: 10px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            width: 90%; /* Ajuste a largura para não extrapolar */
-            max-width: 1000px;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+/* Carrossel com fundo preto */
+.carousel-wrapper {
+    background-color: #000;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 90%; /* Ajuste a largura para não extrapolar */
+    max-width: 1000px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
 #day-counter {
-    text-align: center; /* Centraliza o texto */
-    color: #000; /* Cor inicial para o "21" (preto) */
-    font-size: 2em; /* Tamanho da fonte (ajuste conforme necessário) */
-    font-weight: bold; /* Deixa o texto em negrito */
-    margin-bottom: 15px; /* Espaçamento abaixo do contador */
+    text-align: center;
+    color: #000; /* Cor para o "21" e a barra "/" */
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px; /* Aumentei um pouco a margem */
 }
 
 #day-counter .marked-count {
@@ -45,182 +46,167 @@
 #day-counter::after {
     content: " ✔"; /* Adiciona o ícone de checkmark */
     color: #28a745; /* Cor do ícone (verde) */
-    font-size: 0.8em; /* Tamanho do ícone (ajuste conforme necessário) */
-    margin-left: 5px; /* Espaçamento entre o texto e o ícone */
+    font-size: 0.8em;
+    margin-left: 5px;
 }
 
-        .carousel {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-        }
+.carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
 
-        .carousel-images {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
 
-        .carousel-image {
-            width: 100%;
-            object-fit: cover;
-        }
+.carousel-image {
+    width: 100%;
+    object-fit: cover;
+}
 
-        .carousel-buttons {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-        }
+.carousel-buttons {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
 
-        .carousel-button {
-            background-color: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 18px;
-        }
+.carousel-button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
 
-        /* Estilos da tabela e conteúdo */
-        .planner {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            width: 90%; /* Ajuste a largura para não extrapolar */
-            max-width: 1000px;
-            margin-top: 20px;
-            overflow-x: auto; /* Adiciona barra de rolagem horizontal se necessário */
-        }
+/* Estilos da tabela e conteúdo */
+.planner {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 95%;
+    max-width: 1000px;
+    margin-top: 20px;
+    overflow-x: auto;
+}
 
-        .planner h1 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-        }
+.planner h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            text-align: center;
-            border-radius: 10px;
-            white-space: nowrap; /* Impede que as células quebrem linha */
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 10px;
+    white-space: nowrap;
+}
 
-        th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            vertical-align: middle;
-            width: 50px; /* Largura base das células de dia */
-        }
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+}
 
-        th {
-            background-color: #333;
-            color: #fff;
-            font-weight: bold;
-        }
+th {
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+}
 
-        th.day-header {
-            background-color: #d9534f;
-            color: #fff;
-        }
+th.day-header {
+    background-color: #d9534f;
+    color: #fff;
+}
 
-        td {
-            background-color: #fff;
-            color: #333;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
+td {
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
 
-        td.marked {
-            background-color: #28a745;
-            color: #fff;
-            font-weight: bold;
-        }
+td.marked {
+    background-color: #28a745; /* Cor de fundo quando marcado (verde) */
+    color: #fff; /* Cor do texto (branco) - pode não ser visível se não tiver texto */
+    font-weight: bold;
+    position: relative;
+}
 
-        td.marked::after {
-            content: "✔";
-            font-size: 18px;
-            color: #fff;
-        }
+td.marked::before {
+    content: "✔";
+    color: #fff; /* Cor do checkmark (branco) */
+    font-size: 1.2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+td.task {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+    text-align: left;
+    cursor: pointer;
+    width: auto; /* Deixa a largura se ajustar ao conteúdo */
+}
 
-        td.task {
-            background-color: #f2f2f2;
-            color: #333;
-            font-weight: bold;
-            text-align: left;
-            cursor: pointer;
-            width: auto; /* Permite que a célula da tarefa se ajuste ao conteúdo */
-            min-width: 150px; /* Garante uma largura mínima para a coluna de tarefas */
-        }
+/* Estilo específico para a primeira coluna (Tarefa) */
+table tr > *:first-child {
+    width: 1%; /* Tenta ocupar o mínimo de espaço possível */
+    white-space: nowrap; /* Impede que o texto da tarefa quebre linha */
+}
 
-        td:first-child, th:first-child {
-            width: auto; /* Deixa a largura da primeira coluna se ajustar */
-            min-width: 150px;
-        }
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+    .planner {
+        width: 98%;
+        padding: 15px;
+    }
+    table {
+        font-size: 12px;
+    }
+    th, td {
+        padding: 8px;
+    }
+    #day-counter {
+        font-size: 1.5em;
+    }
+}
 
-        .legend {
-            margin-top: 15px;
-            font-size: 12px;
-            color: #555;
-            text-align: center;
-        }
+@media (max-width: 480px) {
+    .planner {
+        padding: 10px;
+    }
+    table {
+        font-size: 10px;
+    }
+    th, td {
+        padding: 5px;
+    }
+    #day-counter {
+        font-size: 1.2em;
+    }
+}
+.legend {
+    text-align: center; /* Centraliza o conteúdo dentro da div .legend */
+    margin-top: 20px; /* Adiciona um espaço acima da legenda, se necessário */
+}
 
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .carousel-wrapper, .planner {
-                width: 95%;
-            }
-            table {
-                font-size: 12px;
-            }
-
-            td, th {
-                padding: 8px;
-            }
-
-            .planner {
-                padding: 15px;
-            }
-
-            .legend {
-                font-size: 10px;
-            }
-
-            h1 {
-                font-size: 18px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .carousel-wrapper, .planner {
-                width: 98%;
-            }
-            td, th {
-                padding: 5px;
-            }
-
-            .planner {
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 16px;
-            }
-
-            table {
-                font-size: 10px;
-            }
-
-            .legend {
-                font-size: 8px;
-            }
-        }
-    </style>
+.legend p {
+    margin-bottom: 5px; /* Adiciona um pequeno espaço entre as linhas da legenda */
+}
+</style>
 </head>
 <body>
     <div class="carousel-wrapper">
