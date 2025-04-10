@@ -528,217 +528,228 @@
         </div>
     </div>
 
-    <script>
-	// resetando o planner
-	localStorage.removeItem('planner-marks');
-        // Lógica do Carrossel
-        let currentSlide = 0;
-        const images = document.querySelectorAll('.carousel-image');
-        const dayCounterElement = document.getElementById('day-counter');
-        const totalDays = 21; // Defina o número total de dias
+<script>
+    const CURRENT_CHALLENGE_START_DATE = new Date('2025-04-10T00:00:00Z').getTime();
+    const CHALLENGE_RESET_KEY = 'challengeResetDone_2025_04_10';
 
-        function showSlide(index) {
-            const totalSlides = images.length;
-            if (index >= totalSlides) currentSlide = 0;
-            else if (index < 0) currentSlide = totalSlides - 1;
-            else currentSlide = index;
-
-            const carouselImages = document.querySelector('.carousel-images');
-            carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+    function checkAndResetMarksForNewSeason() {
+        const resetDone = localStorage.getItem(CHALLENGE_RESET_KEY);
+        if (!resetDone) {
+            localStorage.removeItem('planner-marks');
+            localStorage.setItem(CHALLENGE_RESET_KEY, 'true');
+            console.log("Novo desafio iniciado em 10-04-2025, marcações resetadas.");
         }
+    }
 
-        function nextSlide() {
-            showSlide(currentSlide + 1);
-        }
+    checkAndResetMarksForNewSeason();
 
-        function prevSlide() {
-            showSlide(currentSlide - 1);
-        }
+    // Lógica do Carrossel
+    let currentSlide = 0;
+    const images = document.querySelectorAll('.carousel-image');
+    const dayCounterElement = document.getElementById('day-counter');
+    const totalDays = 21; // Defina o número total de dias
 
-        setInterval(nextSlide, 5000);
+    function showSlide(index) {
+        const totalSlides = images.length;
+        if (index >= totalSlides) currentSlide = 0;
+        else if (index < 0) currentSlide = totalSlides - 1;
+        else currentSlide = index;
 
-        // Funções de Marcação
-        function toggleMark(cell) {
-            cell.classList.toggle('marked');
-            saveMarks();
-            updateDayCounter(); // Chame a função para atualizar o contador
-        }
+        const carouselImages = document.querySelector('.carousel-images');
+        carouselImages.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
 
-        // Função para salvar as marcas
-        function saveMarks() {
-            const cells = document.querySelectorAll('td[data-id]');
-            const marks = {};
-            cells.forEach(cell => {
-                marks[cell.getAttribute('data-id')] = cell.classList.contains('marked');
-            });
-            localStorage.setItem('planner-marks', JSON.stringify(marks));
-        }
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
 
-        // Função para carregar as marcas
-        function loadMarks() {
-            const marks = JSON.parse(localStorage.getItem('planner-marks'));
-            if (marks) {
-                for (const id in marks) {
-                    const cell = document.querySelector(`td[data-id="${id}"]`);
-                    if (marks[id]) {
-                        cell.classList.add('marked');
-                    }
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    setInterval(nextSlide, 5000);
+
+    // Funções de Marcação
+    function toggleMark(cell) {
+        cell.classList.toggle('marked');
+        saveMarks();
+        updateDayCounter(); // Chame a função para atualizar o contador
+    }
+
+    // Função para salvar as marcas
+    function saveMarks() {
+        const cells = document.querySelectorAll('td[data-id]');
+        const marks = {};
+        cells.forEach(cell => {
+            marks[cell.getAttribute('data-id')] = cell.classList.contains('marked');
+        });
+        localStorage.setItem('planner-marks', JSON.stringify(marks));
+    }
+
+    // Função para carregar as marcas
+    function loadMarks() {
+        const marks = JSON.parse(localStorage.getItem('planner-marks'));
+        if (marks) {
+            for (const id in marks) {
+                const cell = document.querySelector(`td[data-id="${id}"]`);
+                if (marks[id]) {
+                    cell.classList.add('marked');
                 }
             }
         }
+    }
 
-        // Chamar função para carregar marcas na inicialização
-        loadMarks();
-        updateDayCounter();
+    // Chamar função para carregar marcas na inicialização
+    loadMarks();
+    updateDayCounter();
 
-        // Função para exibir informações das tarefas
-        function showTaskInfo(taskName) {
-            const taskDescriptions = {
-                agua: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.",
-                cardio: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.",
-                frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
-                post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
-                dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
-                "sem-acucar": "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
-            };
-            alert(taskDescriptions[taskName]);
-        }
-
-        function updateDayCounter() {
-            let markedDays = 0;
-            for (let i = 1; i <= totalDays; i++) {
-                const dayColumnCells = document.querySelectorAll(`td[data-id$="-${i}"]`);
-                let dayHasMark = false;
-                dayColumnCells.forEach(cell => {
-                    if (cell.classList.contains('marked')) {
-                        dayHasMark = true;
-                    }
-                });
-                if (dayHasMark) {
-                    markedDays++;
-                }
-            }
-            dayCounterElement.innerHTML = `<span class="marked-count">${markedDays}</span> / ${totalDays}`;
-        }
-
-        // Lógica para adicionar fotos (múltiplos posts) com funcionalidade de exclusão por data
-        const choosePhotoButton = document.getElementById("choosePhotoButton");
-        const photoSection = document.getElementById("photo-section");
-        const today = new Date().toLocaleDateString(); // Obtém a data atual no formato local
-
-        // Função para verificar se a data do post é hoje
-        function isToday(dateString) {
-            const now = new Date();
-            const day = String(now.getDate()).padStart(2, '0');
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const year = now.getFullYear();
-            const currentDate = `${day}/${month}/${year}`;
-            return dateString === currentDate;
-        }
-
-        // Carregar posts de fotos salvos
-        window.onload = function() {
-            const savedPosts = localStorage.getItem('photoPosts');
-            if (savedPosts) {
-                let posts = JSON.parse(savedPosts);
-                posts.forEach(postData => {
-                    addPhotoPost(postData.photo, postData.legend, postData.date);
-                });
-            }
+    // Função para exibir informações das tarefas
+    function showTaskInfo(taskName) {
+        const taskDescriptions = {
+            agua: "Cálculo de água: Multiplique 35 pelo seu peso para determinar a quantidade diária recomendada.",
+            cardio: "Cardio: Tente realizar atividades que aumentem seu ritmo cardíaco como caminhar, correr ou pedalar.",
+            frutas: "Consuma 2 frutas por dia para manter uma alimentação equilibrada.",
+            post: "Lembre-se de fazer pelo menos uma postagem por dia nas suas redes sociais.",
+            dieta: "Mantenha sua dieta balanceada com alimentos nutritivos e evite exageros.",
+            "sem-acucar": "Evite consumir alimentos com açúcar. Opte por opções mais saudáveis e naturais."
         };
+        alert(taskDescriptions[taskName]);
+    }
 
-        choosePhotoButton.addEventListener("click", function() {
-            const input = document.createElement("input");
-            input.type = "file";
-            input.accept = "image/*";
-
-            input.addEventListener("change", function(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const now = new Date();
-                        const day = String(now.getDate()).padStart(2, '0');
-                        const month = String(now.getMonth() + 1).padStart(2, '0');
-                        const year = now.getFullYear();
-                        const currentDate = `${day}/${month}/${year}`;
-
-                        addPhotoPost(e.target.result, "", currentDate);
-                        savePhotoPosts();
-                    };
-                    reader.readAsDataURL(file);
+    function updateDayCounter() {
+        let markedDays = 0;
+        for (let i = 1; i <= totalDays; i++) {
+            const dayColumnCells = document.querySelectorAll(`td[data-id$="-${i}"]`);
+            let dayHasMark = false;
+            dayColumnCells.forEach(cell => {
+                if (cell.classList.contains('marked')) {
+                    dayHasMark = true;
                 }
             });
+            if (dayHasMark) {
+                markedDays++;
+            }
+        }
+        dayCounterElement.innerHTML = `<span class="marked-count">${markedDays}</span> / ${totalDays}`;
+    }
 
-            input.click();
+    // Lógica para adicionar fotos (múltiplos posts) com funcionalidade de exclusão por data
+    const choosePhotoButton = document.getElementById("choosePhotoButton");
+    const photoSection = document.getElementById("photo-section");
+    const today = new Date().toLocaleDateString(); // Obtém a data atual no formato local
+
+    // Função para verificar se a data do post é hoje
+    function isToday(dateString) {
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const currentDate = `${day}/${month}/${year}`;
+        return dateString === currentDate;
+    }
+
+    // Carregar posts de fotos salvos
+    window.onload = function() {
+        const savedPosts = localStorage.getItem('photoPosts');
+        if (savedPosts) {
+            let posts = JSON.parse(savedPosts);
+            posts.forEach(postData => {
+                addPhotoPost(postData.photo, postData.legend, postData.date);
+            });
+        }
+    };
+
+    choosePhotoButton.addEventListener("click", function() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+
+        input.addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const now = new Date();
+                    const day = String(now.getDate()).padStart(2, '0');
+                    const month = String(now.getMonth() + 1).padStart(2, '0');
+                    const year = now.getFullYear();
+                    const currentDate = `${day}/${month}/${year}`;
+
+                    addPhotoPost(e.target.result, "", currentDate);
+                    savePhotoPosts();
+                };
+                reader.readAsDataURL(file);
+            }
         });
 
-        function addPhotoPost(photoSrc, legendText, dateText) {
-            const postDiv = document.createElement('div');
-            postDiv.classList.add('photo-post');
-            postDiv.dataset.photoDate = dateText; // Armazena a data no dataset
+        input.click();
+    });
 
-            const legendContainer = document.createElement('div');
-            legendContainer.classList.add('photo-legend-container');
-            legendContainer.textContent = `Foto Dia: ${dateText}`;
+    function addPhotoPost(photoSrc, legendText, dateText) {
+        const postDiv = document.createElement('div');
+        postDiv.classList.add('photo-post');
+        postDiv.dataset.photoDate = dateText; // Armazena a data no dataset
 
-            const img = document.createElement('img');
-            img.src = photoSrc;
-            img.alt = "Foto do Dia";
-            img.classList.add('photo-preview');
+        const legendContainer = document.createElement('div');
+        legendContainer.classList.add('photo-legend-container');
+        legendContainer.textContent = `Foto Dia: ${dateText}`;
 
-            const legendInput = document.createElement('input');
-            legendInput.type = 'text';
-            legendInput.classList.add('edit-legend');
-            legendInput.placeholder = 'Adicionar legenda';
-            legendInput.value = legendText;
-            legendInput.addEventListener('input', savePhotoPosts);
+        const img = document.createElement('img');
+        img.src = photoSrc;
+        img.alt = "Foto do Dia";
+        img.classList.add('photo-preview');
 
-            postDiv.appendChild(legendContainer);
-            postDiv.appendChild(img);
-            postDiv.appendChild(legendInput);
+        const legendInput = document.createElement('input');
+        legendInput.type = 'text';
+        legendInput.classList.add('edit-legend');
+        legendInput.placeholder = 'Adicionar legenda';
+        legendInput.value = legendText;
+        legendInput.addEventListener('input', savePhotoPosts);
 
-            // Adiciona botão de exclusão apenas se a data for hoje
-            if (isToday(dateText)) {
-                const deleteButton = document.createElement('button');
-                deleteButton.classList.add('delete-button');
-                deleteButton.innerHTML = '&times;'; // Ícone de "x"
-                deleteButton.addEventListener('click', function() {
-                    postDiv.remove();
-                    savePhotoPosts();
-                });
-                postDiv.appendChild(deleteButton);
-            } else {
-                const lockedIndicator = document.createElement('span');
-                lockedIndicator.classList.add('locked-indicator');
-                lockedIndicator.innerHTML = '&#10006;'; // Símbolo de "x"
-                postDiv.appendChild(lockedIndicator);
-            }
+        postDiv.appendChild(legendContainer);
+        postDiv.appendChild(img);
+        postDiv.appendChild(legendInput);
 
-            photoSection.appendChild(postDiv);
-        }
-
-        function savePhotoPosts() {
-            const posts = [];
-            const photoPosts = document.querySelectorAll('.photo-post');
-            photoPosts.forEach(post => {
-                const img = post.querySelector('.photo-preview');
-                const legendInput = post.querySelector('.edit-legend');
-                const dateText = post.dataset.photoDate;
-                if (img && legendInput && dateText) {
-                    posts.push({
-                        photo: img.src,
-                        legend: legendInput.value,
-                        date: dateText
-                    });
-                }
+        // Adiciona botão de exclusão apenas se a data for hoje
+        if (isToday(dateText)) {
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('delete-button');
+            deleteButton.innerHTML = '&times;'; // Ícone de "x"
+            deleteButton.addEventListener('click', function() {
+                postDiv.remove();
+                savePhotoPosts();
             });
-            localStorage.setItem('photoPosts', JSON.stringify(posts));
+            postDiv.appendChild(deleteButton);
+        } else {
+            const lockedIndicator = document.createElement('span');
+            lockedIndicator.classList.add('locked-indicator');
+            lockedIndicator.innerHTML = '&#10006;'; // Símbolo de "x"
+            postDiv.appendChild(lockedIndicator);
         }
 
-        // Mover a seção de fotos para dentro do planner abaixo da tabela
-        const plannerDiv = document.querySelector('.planner');
-        plannerDiv.appendChild(photoSection);
-    </script>
+        photoSection.appendChild(postDiv);
+    }
+
+    function savePhotoPosts() {
+        const posts = [];
+        const photoPosts = document.querySelectorAll('.photo-post');
+        photoPosts.forEach(post => {
+            const img = post.querySelector('.photo-preview');
+            const legendInput = post.querySelector('.edit-legend');
+            const dateText = post.dataset.photoDate;
+            if (img && legendInput && dateText) {
+                posts.push({
+                    photo: img.src,
+                    legend: legendInput.value,
+                    date: dateText
+                });
+            }
+        });
+        localStorage.setItem('photoPosts', JSON.stringify(posts));
+    }
+
+    const plannerDiv = document.querySelector('.planner');
+    plannerDiv.appendChild(photoSection);
+</script>
 </body>
 </html>
